@@ -1,0 +1,123 @@
+{
+  "diseases": [
+    {
+      "id": "type2_diabetes",
+      "name": "Type-2 Diabetes",
+      "description": "A chronic condition where the body becomes resistant to insulin or doesn't produce enough insulin to maintain normal glucose levels.",
+      "family_weight": 0.35,
+      "lifestyle_factors": ["high_sugar", "sedentary", "obesity", "stress"],
+      "lab_markers": ["hba1c", "fasting_glucose", "random_glucose"],
+      "thresholds": {
+        "hba1c_prediabetic": 5.7,
+        "hba1c_diabetic": 6.5,
+        "fasting_glucose_prediabetic": 100,
+        "fasting_glucose_diabetic": 126
+      }
+    },
+    {
+      "id": "cad",
+      "name": "Coronary Artery Disease",
+      "description": "A condition where plaque builds up in coronary arteries, reducing blood flow to the heart muscle.",
+      "family_weight": 0.30,
+      "lifestyle_factors": ["smoking", "high_fat_diet", "sedentary", "stress"],
+      "lab_markers": ["ldl", "hdl", "triglycerides", "total_cholesterol"],
+      "thresholds": {
+        "ldl_high": 130,
+        "hdl_low": 40,
+        "triglycerides_high": 150,
+        "total_cholesterol_high": 200
+      }
+    },
+    {
+      "id": "hypertension",
+      "name": "Hypertension",
+      "description": "Persistently elevated blood pressure that increases risk of heart disease, stroke, and kidney problems.",
+      "family_weight": 0.28,
+      "lifestyle_factors": ["high_salt", "alcohol", "sedentary", "obesity", "stress"],
+      "lab_markers": ["systolic_bp", "diastolic_bp"],
+      "thresholds": {
+        "systolic_elevated": 130,
+        "diastolic_elevated": 80
+      }
+    },
+    {
+      "id": "familial_hypercholesterolemia",
+      "name": "Familial Hypercholesterolemia",
+      "description": "An inherited disorder causing very high cholesterol levels from birth, significantly increasing heart disease risk.",
+      "family_weight": 0.50,
+      "lifestyle_factors": ["high_fat_diet", "sedentary"],
+      "lab_markers": ["ldl", "total_cholesterol"],
+      "thresholds": {
+        "ldl_very_high": 190,
+        "total_cholesterol_very_high": 300
+      }
+    },
+    {
+      "id": "breast_ovarian_cancer",
+      "name": "Breast/Ovarian Cancer Risk",
+      "description": "Inherited genetic mutations (especially BRCA1/BRCA2) that significantly increase lifetime risk of breast and ovarian cancers.",
+      "family_weight": 0.45,
+      "lifestyle_factors": ["alcohol", "obesity", "hormone_therapy"],
+      "lab_markers": [],
+      "thresholds": {}
+    },
+    {
+      "id": "thalassemia",
+      "name": "Thalassemia Carrier Risk",
+      "description": "An inherited blood disorder causing reduced hemoglobin production, leading to anemia and fatigue.",
+      "family_weight": 0.50,
+      "lifestyle_factors": [],
+      "lab_markers": ["hemoglobin", "mcv", "mch"],
+      "thresholds": {
+        "hemoglobin_low": 12.0,
+        "mcv_low": 80,
+        "mch_low": 27
+      }
+    },
+    {
+      "id": "sickle_cell",
+      "name": "Sickle Cell Disease Risk",
+      "description": "An inherited disorder causing red blood cells to become rigid and sickle-shaped, leading to pain and organ damage.",
+      "family_weight": 0.50,
+      "lifestyle_factors": [],
+      "lab_markers": ["hemoglobin"],
+      "thresholds": {
+        "hemoglobin_low": 11.0
+      }
+    },
+    {
+      "id": "asthma",
+      "name": "Asthma Predisposition",
+      "description": "A chronic respiratory condition causing airway inflammation and breathing difficulties triggered by various factors.",
+      "family_weight": 0.25,
+      "lifestyle_factors": ["smoking", "air_pollution", "allergen_exposure"],
+      "lab_markers": [],
+      "thresholds": {}
+    },
+    {
+      "id": "hypothyroidism",
+      "name": "Hypothyroidism Predisposition",
+      "description": "A condition where the thyroid gland doesn't produce enough thyroid hormone, slowing metabolism.",
+      "family_weight": 0.30,
+      "lifestyle_factors": ["iodine_deficiency", "stress"],
+      "lab_markers": ["tsh", "t4", "t3"],
+      "thresholds": {
+        "tsh_high": 4.5,
+        "t4_low": 0.8,
+        "t3_low": 80
+      }
+    },
+    {
+      "id": "pcos",
+      "name": "PCOS Predisposition",
+      "description": "Polycystic Ovary Syndrome - a hormonal disorder causing irregular periods, excess androgens, and metabolic issues.",
+      "family_weight": 0.35,
+      "lifestyle_factors": ["obesity", "high_sugar", "sedentary"],
+      "lab_markers": ["fasting_glucose", "testosterone", "insulin"],
+      "thresholds": {
+        "fasting_glucose_high": 100,
+        "testosterone_high": 50
+      }
+    }
+  ]
+}

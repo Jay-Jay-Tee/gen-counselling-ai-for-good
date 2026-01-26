@@ -1,0 +1,173 @@
+{
+  "demo_cases": {
+    "case_a_low_risk": {
+      "name": "Low Risk Demo",
+      "description": "Healthy young adult, no family history, good habits",
+      "basic_info": {
+        "age": 24,
+        "gender": "male",
+        "height": 175,
+        "weight": 70,
+        "bmi": 22.9
+      },
+      "lifestyle": {
+        "smoking": false,
+        "alcohol": "none",
+        "exercise": "regular",
+        "diet": "balanced",
+        "sleep_hours": 7.5,
+        "stress_level": "low"
+      },
+      "family_history": {
+        "generation_1": {},
+        "generation_2": {}
+      },
+      "lab_values": {}
+    },
+    "case_b_high_diabetes_risk": {
+      "name": "High Diabetes Risk Demo",
+      "description": "Mother diabetic, high sugar intake, elevated HbA1c from OCR",
+      "basic_info": {
+        "age": 32,
+        "gender": "female",
+        "height": 162,
+        "weight": 78,
+        "bmi": 29.7
+      },
+      "lifestyle": {
+        "smoking": false,
+        "alcohol": "occasional",
+        "exercise": "sedentary",
+        "diet": "high_sugar",
+        "sleep_hours": 6,
+        "stress_level": "high"
+      },
+      "family_history": {
+        "generation_1": {
+          "mother": {
+            "type2_diabetes": true,
+            "hypertension": true
+          },
+          "father": {
+            "cad": false
+          }
+        },
+        "generation_2": {
+          "maternal_grandmother": {
+            "type2_diabetes": true
+          }
+        }
+      },
+      "lab_values": {
+        "hba1c": 6.2,
+        "fasting_glucose": 115,
+        "ldl": 145,
+        "hdl": 38,
+        "triglycerides": 180,
+        "systolic_bp": 135,
+        "diastolic_bp": 88
+      }
+    },
+    "case_c_mixed_risk": {
+      "name": "Mixed Risk Profile",
+      "description": "Some family history, moderate lifestyle issues",
+      "basic_info": {
+        "age": 28,
+        "gender": "male",
+        "height": 180,
+        "weight": 85,
+        "bmi": 26.2
+      },
+      "lifestyle": {
+        "smoking": true,
+        "alcohol": "moderate",
+        "exercise": "occasional",
+        "diet": "high_fat",
+        "sleep_hours": 6.5,
+        "stress_level": "moderate"
+      },
+      "family_history": {
+        "generation_1": {
+          "father": {
+            "cad": true,
+            "hypertension": true
+          },
+          "mother": {
+            "hypothyroidism": true
+          }
+        },
+        "generation_2": {
+          "paternal_grandfather": {
+            "cad": true
+          }
+        }
+      },
+      "lab_values": {
+        "ldl": 160,
+        "hdl": 35,
+        "triglycerides": 165,
+        "total_cholesterol": 225,
+        "systolic_bp": 128,
+        "diastolic_bp": 82
+      }
+    },
+    "case_d_genetic_risk": {
+      "name": "Strong Genetic Risk",
+      "description": "Multiple family members with hereditary conditions",
+      "basic_info": {
+        "age": 25,
+        "gender": "female",
+        "height": 165,
+        "weight": 60,
+        "bmi": 22.0
+      },
+      "lifestyle": {
+        "smoking": false,
+        "alcohol": "none",
+        "exercise": "regular",
+        "diet": "balanced",
+        "sleep_hours": 7,
+        "stress_level": "low"
+      },
+      "family_history": {
+        "generation_1": {
+          "mother": {
+            "breast_ovarian_cancer": true
+          },
+          "father": {
+            "familial_hypercholesterolemia": true
+          }
+        },
+        "generation_2": {
+          "maternal_grandmother": {
+            "breast_ovarian_cancer": true
+          },
+          "maternal_aunt": {
+            "breast_ovarian_cancer": true
+          },
+          "paternal_grandfather": {
+            "cad": true
+          }
+        }
+      },
+      "lab_values": {
+        "ldl": 195,
+        "total_cholesterol": 310,
+        "hdl": 45
+      }
+    }
+  },
+  "lifestyle_factor_mappings": {
+    "high_sugar": ["high_sugar_intake", "excessive_sweets", "sugary_drinks"],
+    "sedentary": ["no_exercise", "desk_job", "inactive", "less_than_30min_weekly"],
+    "obesity": ["bmi_over_30", "overweight"],
+    "stress": ["high_stress", "chronic_stress", "work_stress"],
+    "smoking": ["current_smoker", "smokes"],
+    "alcohol": ["heavy_drinking", "frequent_alcohol"],
+    "high_fat_diet": ["fried_foods", "fatty_diet", "fast_food_regular"],
+    "high_salt": ["salty_foods", "processed_foods_frequent"],
+    "air_pollution": ["pollution_exposure", "urban_pollution"],
+    "allergen_exposure": ["dust", "pollen", "pets"],
+    "iodine_deficiency": ["low_iodine_diet"]
+  }
+}

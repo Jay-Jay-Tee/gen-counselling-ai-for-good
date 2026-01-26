@@ -1,0 +1,253 @@
+{
+  "risk_classes": {
+    "I": {
+      "label": "Low Risk",
+      "description": "Minimal genetic or lifestyle risk detected",
+      "color": "#22c55e",
+      "prevention": [
+        "Maintain current healthy habits",
+        "Annual health checkups recommended",
+        "Continue balanced diet and regular exercise",
+        "Monitor family health history changes"
+      ],
+      "consult": "Routine annual checkup"
+    },
+    "II": {
+      "label": "Moderate Risk",
+      "description": "Some risk factors present, preventive action advised",
+      "color": "#eab308",
+      "prevention": [
+        "Adopt healthier lifestyle modifications now",
+        "Schedule screening tests as recommended",
+        "Increase physical activity to 150 min/week",
+        "Reduce processed foods and added sugars",
+        "Track symptoms and health metrics regularly"
+      ],
+      "consult": "Schedule screening within 3-6 months"
+    },
+    "III": {
+      "label": "High Risk",
+      "description": "Significant risk factors detected, early action needed",
+      "color": "#f97316",
+      "prevention": [
+        "Immediate lifestyle intervention required",
+        "Consult healthcare provider soon",
+        "Get recommended screening tests urgently",
+        "Strict diet and exercise plan needed",
+        "Consider genetic counseling if family history strong",
+        "Monitor key health metrics weekly"
+      ],
+      "consult": "Consult doctor within 1 month"
+    },
+    "IV": {
+      "label": "Very High Risk",
+      "description": "Critical risk level, urgent medical attention required",
+      "color": "#ef4444",
+      "prevention": [
+        "Seek medical consultation immediately",
+        "Get comprehensive diagnostic testing done",
+        "Aggressive lifestyle modification essential",
+        "May require preventive medication or therapy",
+        "Genetic counseling strongly recommended",
+        "Regular monitoring and follow-ups mandatory"
+      ],
+      "consult": "Urgent - consult doctor within 1-2 weeks"
+    }
+  },
+  "disease_specific_prevention": {
+    "type2_diabetes": {
+      "diet": [
+        "Reduce sugar and refined carbohydrates",
+        "Choose whole grains over white rice/bread",
+        "Increase fiber intake (vegetables, legumes)",
+        "Control portion sizes",
+        "Avoid sugary drinks and fruit juices"
+      ],
+      "exercise": [
+        "30 minutes moderate activity daily",
+        "Include both cardio and strength training",
+        "Take walking breaks every hour if sedentary job"
+      ],
+      "lifestyle": [
+        "Maintain healthy weight (BMI 18.5-24.9)",
+        "Get 7-8 hours quality sleep",
+        "Manage stress through meditation/yoga",
+        "Quit smoking if applicable"
+      ]
+    },
+    "cad": {
+      "diet": [
+        "Follow heart-healthy Mediterranean diet",
+        "Limit saturated and trans fats",
+        "Increase omega-3 fatty acids (fish, nuts)",
+        "Reduce sodium intake below 2300mg/day",
+        "Eat more fruits, vegetables, whole grains"
+      ],
+      "exercise": [
+        "150 minutes moderate aerobic activity weekly",
+        "Include strength training twice weekly",
+        "Gradual increase if currently inactive"
+      ],
+      "lifestyle": [
+        "Quit smoking immediately",
+        "Limit alcohol consumption",
+        "Maintain healthy weight",
+        "Control stress and blood pressure",
+        "Regular health monitoring"
+      ]
+    },
+    "hypertension": {
+      "diet": [
+        "DASH diet - rich in fruits, vegetables, low-fat dairy",
+        "Reduce sodium to <1500mg daily",
+        "Limit alcohol (max 1-2 drinks/day)",
+        "Increase potassium-rich foods",
+        "Avoid processed and packaged foods"
+      ],
+      "exercise": [
+        "Regular aerobic exercise 30 min/day",
+        "Walking, swimming, cycling recommended",
+        "Avoid excessive heavy weightlifting"
+      ],
+      "lifestyle": [
+        "Weight management crucial",
+        "Stress reduction techniques",
+        "Quit smoking",
+        "Limit caffeine",
+        "Monitor blood pressure regularly"
+      ]
+    },
+    "familial_hypercholesterolemia": {
+      "diet": [
+        "Very low saturated fat diet",
+        "Eliminate trans fats completely",
+        "Plant sterols and stanols",
+        "Increase soluble fiber",
+        "Limit dietary cholesterol"
+      ],
+      "exercise": [
+        "Daily aerobic exercise essential",
+        "At least 40 minutes moderate intensity"
+      ],
+      "lifestyle": [
+        "Early and aggressive treatment crucial",
+        "Genetic counseling recommended",
+        "Regular lipid monitoring",
+        "May require statin therapy early",
+        "Family screening important"
+      ]
+    },
+    "breast_ovarian_cancer": {
+      "diet": [
+        "Maintain healthy weight",
+        "Limit alcohol consumption",
+        "Plant-based diet rich in antioxidants",
+        "Reduce processed meats"
+      ],
+      "exercise": [
+        "Regular physical activity",
+        "150+ minutes weekly recommended"
+      ],
+      "lifestyle": [
+        "Genetic counseling strongly advised",
+        "Consider BRCA testing if family history",
+        "Regular breast self-examination",
+        "Discuss preventive options with doctor",
+        "Avoid hormone replacement therapy if possible",
+        "Breastfeeding reduces risk if applicable"
+      ]
+    },
+    "thalassemia": {
+      "diet": [
+        "Iron-rich diet if needed based on type",
+        "Folic acid supplementation",
+        "Balanced nutrition"
+      ],
+      "exercise": [
+        "Moderate exercise as tolerated",
+        "Avoid overexertion if anemic"
+      ],
+      "lifestyle": [
+        "Genetic counseling before family planning",
+        "Partner testing recommended",
+        "Regular blood tests",
+        "Vaccination updates important"
+      ]
+    },
+    "sickle_cell": {
+      "diet": [
+        "Adequate hydration crucial",
+        "Folic acid supplementation",
+        "Balanced diet"
+      ],
+      "exercise": [
+        "Moderate exercise with caution",
+        "Avoid extreme exertion or dehydration"
+      ],
+      "lifestyle": [
+        "Genetic counseling essential",
+        "Avoid extreme temperatures",
+        "Prevent infections - vaccinations current",
+        "Pain management plan",
+        "Regular medical monitoring"
+      ]
+    },
+    "asthma": {
+      "diet": [
+        "Identify and avoid food triggers",
+        "Anti-inflammatory foods",
+        "Adequate vitamin D"
+      ],
+      "exercise": [
+        "Regular exercise improves lung function",
+        "Warm up properly",
+        "Have rescue inhaler available"
+      ],
+      "lifestyle": [
+        "Identify and avoid triggers",
+        "Air quality awareness",
+        "No smoking or secondhand smoke",
+        "Allergen-proof home",
+        "Have asthma action plan"
+      ]
+    },
+    "hypothyroidism": {
+      "diet": [
+        "Adequate iodine intake",
+        "Selenium-rich foods",
+        "Avoid excessive soy if susceptible",
+        "Balanced nutrition"
+      ],
+      "exercise": [
+        "Regular exercise helps metabolism",
+        "Gradual increase if fatigued"
+      ],
+      "lifestyle": [
+        "Regular thyroid function tests",
+        "Stress management",
+        "Adequate sleep",
+        "Monitor symptoms closely"
+      ]
+    },
+    "pcos": {
+      "diet": [
+        "Low glycemic index diet",
+        "Reduce refined carbs and sugar",
+        "Increase fiber and protein",
+        "Anti-inflammatory foods"
+      ],
+      "exercise": [
+        "Regular exercise crucial for insulin sensitivity",
+        "Mix cardio and strength training",
+        "150+ minutes weekly"
+      ],
+      "lifestyle": [
+        "Weight management critical",
+        "Stress reduction",
+        "Regular sleep schedule",
+        "Monitor menstrual cycles",
+        "Consider supplements (inositol, vitamin D)"
+      ]
+    }
+  }
+}
