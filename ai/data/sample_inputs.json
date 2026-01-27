@@ -3,12 +3,13 @@
     "case_a_low_risk": {
       "name": "Low Risk Demo",
       "description": "Healthy young adult, no family history, good habits",
-      "basic_info": {
+      "patient": {
         "age": 24,
-        "gender": "male",
-        "height": 175,
+        "gender": "M",
         "weight": 70,
-        "bmi": 22.9
+        "height": 175,
+        "race": "asian",
+        "known_issues": []
       },
       "lifestyle": {
         "smoking": false,
@@ -18,18 +19,19 @@
         "sleep_hours": 7.5,
         "stress_level": "low"
       },
-      "family_history": [],
+      "family": [],
       "lab_values": {}
     },
     "case_b_high_diabetes_risk": {
       "name": "High Diabetes Risk Demo",
       "description": "Mother diabetic, sister diabetic, high sugar intake, elevated HbA1c from OCR",
-      "basic_info": {
+      "patient": {
         "age": 32,
-        "gender": "female",
+        "gender": "F",
+        "weight": 78.5,
         "height": 162,
-        "weight": 78,
-        "bmi": 29.7
+        "race": "asian",
+        "known_issues": []
       },
       "lifestyle": {
         "smoking": false,
@@ -39,22 +41,30 @@
         "sleep_hours": 6,
         "stress_level": "high"
       },
-      "family_history": [
+      "family": [
         {
           "role": "mother",
           "generation": 1,
-          "type2_diabetes": true,
-          "hypertension": true
+          "age": 58,
+          "gender": "F",
+          "weight": 65.0,
+          "height": 160,
+          "race": "asian",
+          "known_issues": ["type2_diabetes", "hypertension"]
         },
         {
           "role": "sister",
           "generation": 0,
-          "type2_diabetes": true
+          "age": 28,
+          "gender": "F",
+          "known_issues": ["type2_diabetes"]
         },
         {
           "role": "maternal_grandmother",
           "generation": 2,
-          "type2_diabetes": true
+          "age": 82,
+          "gender": "F",
+          "known_issues": ["type2_diabetes"]
         }
       ],
       "lab_values": {
@@ -70,12 +80,13 @@
     "case_c_mixed_risk": {
       "name": "Mixed Risk Profile",
       "description": "Father with CAD, brother with asthma, moderate lifestyle issues",
-      "basic_info": {
+      "patient": {
         "age": 28,
-        "gender": "male",
-        "height": 180,
+        "gender": "M",
         "weight": 85,
-        "bmi": 26.2
+        "height": 180,
+        "race": "caucasian",
+        "known_issues": []
       },
       "lifestyle": {
         "smoking": true,
@@ -85,27 +96,34 @@
         "sleep_hours": 6.5,
         "stress_level": "moderate"
       },
-      "family_history": [
+      "family": [
         {
           "role": "father",
           "generation": 1,
-          "cad": true,
-          "hypertension": true
+          "age": 62,
+          "gender": "M",
+          "known_issues": ["cad", "hypertension"]
         },
         {
           "role": "mother",
           "generation": 1,
-          "hypothyroidism": true
+          "age": 59,
+          "gender": "F",
+          "known_issues": ["hypothyroidism"]
         },
         {
           "role": "brother",
           "generation": 0,
-          "asthma": true
+          "age": 25,
+          "gender": "M",
+          "known_issues": ["asthma"]
         },
         {
           "role": "paternal_grandfather",
           "generation": 2,
-          "cad": true
+          "age": 85,
+          "gender": "M",
+          "known_issues": ["cad"]
         }
       ],
       "lab_values": {
@@ -120,12 +138,13 @@
     "case_d_genetic_risk": {
       "name": "Strong Genetic Risk",
       "description": "Multiple family members with hereditary conditions across 3 generations",
-      "basic_info": {
+      "patient": {
         "age": 25,
-        "gender": "female",
-        "height": 165,
+        "gender": "F",
         "weight": 60,
-        "bmi": 22.0
+        "height": 165,
+        "race": "caucasian",
+        "known_issues": []
       },
       "lifestyle": {
         "smoking": false,
@@ -135,46 +154,62 @@
         "sleep_hours": 7,
         "stress_level": "low"
       },
-      "family_history": [
+      "family": [
         {
           "role": "mother",
           "generation": 1,
-          "breast_ovarian_cancer": true
+          "age": 52,
+          "gender": "F",
+          "known_issues": ["breast_ovarian_cancer"]
         },
         {
           "role": "father",
           "generation": 1,
-          "familial_hypercholesterolemia": true
+          "age": 55,
+          "gender": "M",
+          "known_issues": ["familial_hypercholesterolemia"]
         },
         {
           "role": "sister",
           "generation": 0,
-          "breast_ovarian_cancer": true
+          "age": 28,
+          "gender": "F",
+          "known_issues": ["breast_ovarian_cancer"]
         },
         {
           "role": "maternal_grandmother",
           "generation": 2,
-          "breast_ovarian_cancer": true
+          "age": 78,
+          "gender": "F",
+          "known_issues": ["breast_ovarian_cancer"]
         },
         {
           "role": "maternal_aunt",
           "generation": 2,
-          "breast_ovarian_cancer": true
+          "age": 50,
+          "gender": "F",
+          "known_issues": ["breast_ovarian_cancer"]
         },
         {
           "role": "maternal_aunt",
           "generation": 2,
-          "breast_ovarian_cancer": true
+          "age": 48,
+          "gender": "F",
+          "known_issues": ["breast_ovarian_cancer"]
         },
         {
           "role": "paternal_grandfather",
           "generation": 2,
-          "cad": true
+          "age": 80,
+          "gender": "M",
+          "known_issues": ["cad"]
         },
         {
           "role": "daughter",
           "generation": -1,
-          "thalassemia": true
+          "age": 3,
+          "gender": "F",
+          "known_issues": []
         }
       ],
       "lab_values": {
@@ -211,5 +246,17 @@
       "paternal_aunt",
       "paternal_uncle"
     ]
-  }
+  },
+  "valid_disease_ids": [
+    "type2_diabetes",
+    "cad",
+    "hypertension",
+    "familial_hypercholesterolemia",
+    "breast_ovarian_cancer",
+    "thalassemia",
+    "sickle_cell",
+    "asthma",
+    "hypothyroidism",
+    "pcos"
+  ]
 }

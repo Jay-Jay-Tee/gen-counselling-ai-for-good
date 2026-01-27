@@ -4,13 +4,19 @@ Generates personalized prevention plans based on disease, risk class, and user p
 """
 
 import json
+from pathlib import Path
 from typing import Dict, List, Any
+
+# Module-relative paths
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+GUIDELINES_PATH = DATA_DIR / "guidelines.json"
 
 
 def load_guidelines():
     """Load prevention guidelines from JSON"""
     try:
-        with open('data/guidelines.json', 'r') as f:
+        with open(GUIDELINES_PATH, 'r') as f:
             return json.load(f)
     except Exception as e:
         print(f"Error loading guidelines: {e}")

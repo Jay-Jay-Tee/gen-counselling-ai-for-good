@@ -4,13 +4,19 @@ Suggests appropriate medical tests based on disease risk and user profile
 """
 
 import json
+from pathlib import Path
 from typing import Dict, List, Any
+
+# Module-relative paths
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+TESTS_PATH = DATA_DIR / "tests_map.json"
 
 
 def load_tests_map():
     """Load tests mapping from JSON"""
     try:
-        with open('data/tests_map.json', 'r') as f:
+        with open(TESTS_PATH, 'r') as f:
             return json.load(f)
     except Exception as e:
         print(f"Error loading tests map: {e}")
@@ -180,18 +186,16 @@ def adjust_frequency(base_frequency: str, risk_class: str) -> str:
     return adjustments.get(base_frequency, base_frequency)
 
 
-def has_family_history_for_disease(family_history: Dict, disease_id: str) -> bool:
+def has_family_history_for_disease(family: List, disease_id: str) -> bool:
     """Check if user has family history for this disease"""
     
-    gen1 = family_history.get('generation_1', {})
-    gen2 = family_history.get('generation_2', {})
+    if not family:
+        return False
     
-    for relation, conditions in gen1.items():
-        if isinstance(conditions, dict) and conditions.get(disease_id, False):
-            return True
-    
-    for relation, conditions in gen2.items():
-        if isinstance(conditions, dict) and conditions.get(disease_id, False):
+    # Check if any family member has this disease in their known_issues
+    for member in family:
+        known_issues = member.get('known_issues', [])
+        if disease_id in known_issues:
             return True
     
     return False

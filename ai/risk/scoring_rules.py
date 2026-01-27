@@ -31,23 +31,26 @@ def normalize_lab_key(key: str) -> str:
     return key_lower
 
 
-def calculate_family_score(disease: Dict, family_history: List[Dict]) -> float:
+def calculate_family_score(disease: Dict, family: List[Dict]) -> float:
     """
     Calculate family history risk score
     
     Args:
         disease: Disease configuration dict
-        family_history: List of family members with format:
+        family: List of family members with format:
             [
-                {"role": "mother", "generation": 1, "type2_diabetes": true},
-                {"role": "sister", "generation": 0, "hypertension": true},
-                {"role": "daughter", "generation": -1, "asthma": true}
+                {
+                    "role": "mother",
+                    "generation": 1,
+                    "age": 58,
+                    "known_issues": ["type2_diabetes", "hypertension"]
+                }
             ]
     
     Returns:
         Score between 0.0 and 1.0
     """
-    if not family_history:
+    if not family:
         return 0.1  # Baseline
     
     disease_id = disease['id']
@@ -59,9 +62,10 @@ def calculate_family_score(disease: Dict, family_history: List[Dict]) -> float:
     gen1_count = 0        # Parents
     gen2_count = 0        # Grandparents/Aunts/Uncles
     
-    for member in family_history:
-        # Check if this member has the disease
-        if member.get(disease_id, False):
+    for member in family:
+        # Check if this member has the disease in their known_issues array
+        known_issues = member.get('known_issues', [])
+        if disease_id in known_issues:
             generation = member.get('generation', 2)
             
             if generation == -1:

@@ -71,7 +71,7 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
     lab_values = user_data.get('lab_values', {})
     lifestyle = user_data.get('lifestyle', {})
     basic_info = user_data.get('basic_info', {})
-    family_history = user_data.get('family_history', [])
+    family = user_data.get('family', [])
     
     # Critical lab values
     if disease_id == 'type2_diabetes':
@@ -91,8 +91,9 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
         # Smoking + high cholesterol + family history = urgent
         if lifestyle.get('smoking') and ldl >= 150:
             # Check for family history of CAD
-            for member in family_history:
-                if member.get('cad', False):
+            for member in family:
+                known_issues = member.get('known_issues', [])
+                if 'cad' in known_issues:
                     return 'urgent'
     
     elif disease_id == 'hypertension':
@@ -106,13 +107,15 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
         # Multiple first-degree relatives = urgent genetic counseling
         # First degree: parents (gen 1), siblings (gen 0), children (gen -1)
         first_degree_count = sum(
-            1 for member in family_history
-            if member.get('generation') in [-1, 0, 1] and member.get('breast_ovarian_cancer', False)
+            1 for member in family
+            if member.get('generation') in [-1, 0, 1]
+            and 'breast_ovarian_cancer' in member.get('known_issues', [])
         )
         
         gen2_count = sum(
-            1 for member in family_history
-            if member.get('generation') == 2 and member.get('breast_ovarian_cancer', False)
+            1 for member in family
+            if member.get('generation') == 2
+            and 'breast_ovarian_cancer' in member.get('known_issues', [])
         )
         
         # If 2+ first-degree relatives OR 1 first-degree + 2 second-degree

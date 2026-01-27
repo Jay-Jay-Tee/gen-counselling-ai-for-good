@@ -1,0 +1,615 @@
+{
+  "api_version": "1.0",
+  "last_updated": "2026-01-27",
+  "endpoints": {
+
+
+
+
+
+    "predict_risk": {
+      "method": "POST",
+      "path": "/predict-risk",
+      "description": "Predict disease risks based on patient data, family history, lifestyle, and lab values",
+      "request_body": {
+        "patient": {
+          "type": "object",
+          "required": true,
+          "description": "Patient's personal information and current health status",
+          "fields": {
+            "age": {
+              "type": "integer",
+              "required": true,
+              "range": [15, 100],
+              "example": 32
+            },
+            "gender": {
+              "type": "string",
+              "required": true,
+              "enum": ["M", "F", "Other"],
+              "example": "F"
+            },
+            "weight": {
+              "type": "number",
+              "required": true,
+              "unit": "kg",
+              "example": 78.5
+            },
+            "height": {
+              "type": "number",
+              "required": true,
+              "unit": "cm",
+              "example": 162
+            },
+            "race": {
+              "type": "string",
+              "required": false,
+              "enum": ["asian", "caucasian", "african", "hispanic", "other"],
+              "example": "asian",
+              "description": "Race/ethnicity for population-specific risk adjustment"
+            },
+            "known_issues": {
+              "type": "array",
+              "required": false,
+              "description": "Currently diagnosed conditions",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "type2_diabetes",
+                  "cad",
+                  "hypertension",
+                  "familial_hypercholesterolemia",
+                  "breast_ovarian_cancer",
+                  "thalassemia",
+                  "sickle_cell",
+                  "asthma",
+                  "hypothyroidism",
+                  "pcos"
+                ]
+              },
+              "example": ["hypertension", "type2_diabetes"]
+            }
+          }
+        },
+        "lifestyle": {
+          "type": "object",
+          "required": true,
+          "description": "Patient's lifestyle and habits",
+          "fields": {
+            "smoking": {
+              "type": "boolean",
+              "required": true,
+              "example": false
+            },
+            "alcohol": {
+              "type": "string",
+              "required": true,
+              "enum": ["none", "occasional", "moderate", "heavy"],
+              "example": "occasional"
+            },
+            "exercise": {
+              "type": "string",
+              "required": true,
+              "enum": ["sedentary", "occasional", "regular"],
+              "example": "sedentary"
+            },
+            "diet": {
+              "type": "string",
+              "required": true,
+              "enum": ["balanced", "high_sugar", "high_fat_diet", "high_salt"],
+              "example": "high_sugar"
+            },
+            "sleep_hours": {
+              "type": "number",
+              "required": true,
+              "range": [0, 12],
+              "example": 6.5
+            },
+            "stress_level": {
+              "type": "string",
+              "required": true,
+              "enum": ["low", "moderate", "high"],
+              "example": "high"
+            }
+          }
+        },
+        "family": {
+          "type": "array",
+          "required": true,
+          "description": "Array of family members with their health information",
+          "items": {
+            "type": "object",
+            "fields": {
+              "role": {
+                "type": "string",
+                "required": true,
+                "enum": [
+                  "son", "daughter", "child",
+                  "brother", "sister", "sibling",
+                  "mother", "father",
+                  "maternal_grandmother", "maternal_grandfather",
+                  "paternal_grandmother", "paternal_grandfather",
+                  "maternal_aunt", "maternal_uncle",
+                  "paternal_aunt", "paternal_uncle"
+                ],
+                "example": "mother"
+              },
+              "generation": {
+                "type": "integer",
+                "required": true,
+                "enum": [-1, 0, 1, 2],
+                "description": "-1: children, 0: siblings, 1: parents, 2: extended",
+                "example": 1
+              },
+              "age": {
+                "type": "integer",
+                "required": false,
+                "range": [0, 120],
+                "example": 58
+              },
+              "gender": {
+                "type": "string",
+                "required": false,
+                "enum": ["M", "F", "Other"],
+                "example": "F"
+              },
+              "weight": {
+                "type": "number",
+                "required": false,
+                "unit": "kg",
+                "example": 65.0
+              },
+              "height": {
+                "type": "number",
+                "required": false,
+                "unit": "cm",
+                "example": 160
+              },
+              "race": {
+                "type": "string",
+                "required": false,
+                "enum": ["asian", "caucasian", "african", "hispanic", "other"],
+                "example": "asian"
+              },
+              "known_issues": {
+                "type": "array",
+                "required": true,
+                "description": "Diagnosed conditions for this family member",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "type2_diabetes",
+                    "cad",
+                    "hypertension",
+                    "familial_hypercholesterolemia",
+                    "breast_ovarian_cancer",
+                    "thalassemia",
+                    "sickle_cell",
+                    "asthma",
+                    "hypothyroidism",
+                    "pcos"
+                  ]
+                },
+                "example": ["type2_diabetes", "hypertension"]
+              }
+            }
+          },
+          "example": [
+            {
+              "role": "mother",
+              "generation": 1,
+              "age": 58,
+              "gender": "F",
+              "weight": 65.0,
+              "height": 160,
+              "race": "asian",
+              "known_issues": ["type2_diabetes", "hypertension"]
+            },
+            {
+              "role": "sister",
+              "generation": 0,
+              "age": 28,
+              "gender": "F",
+              "known_issues": ["pcos"]
+            }
+          ]
+        },
+        "lab_values": {
+          "type": "object",
+          "required": false,
+          "description": "Laboratory test results (from OCR or manual entry)",
+          "fields": {
+            "hba1c": {
+              "type": "number",
+              "unit": "%",
+              "example": 6.2
+            },
+            "fasting_glucose": {
+              "type": "number",
+              "unit": "mg/dL",
+              "example": 115
+            },
+            "random_glucose": {
+              "type": "number",
+              "unit": "mg/dL",
+              "example": 140
+            },
+            "ldl": {
+              "type": "number",
+              "unit": "mg/dL",
+              "example": 145
+            },
+            "hdl": {
+              "type": "number",
+              "unit": "mg/dL",
+              "example": 38
+            },
+            "triglycerides": {
+              "type": "number",
+              "unit": "mg/dL",
+              "example": 180
+            },
+            "total_cholesterol": {
+              "type": "number",
+              "unit": "mg/dL",
+              "example": 225
+            },
+            "systolic_bp": {
+              "type": "number",
+              "unit": "mmHg",
+              "example": 135
+            },
+            "diastolic_bp": {
+              "type": "number",
+              "unit": "mmHg",
+              "example": 88
+            },
+            "tsh": {
+              "type": "number",
+              "unit": "mIU/L",
+              "example": 3.5
+            },
+            "t4": {
+              "type": "number",
+              "unit": "ng/dL",
+              "example": 1.2
+            },
+            "t3": {
+              "type": "number",
+              "unit": "ng/dL",
+              "example": 120
+            },
+            "hemoglobin": {
+              "type": "number",
+              "unit": "g/dL",
+              "example": 12.5
+            },
+            "rbc": {
+              "type": "number",
+              "unit": "million cells/uL",
+              "example": 4.5
+            },
+            "mcv": {
+              "type": "number",
+              "unit": "fL",
+              "example": 85
+            },
+            "mch": {
+              "type": "number",
+              "unit": "pg",
+              "example": 28
+            }
+          }
+        }
+      },
+      "response": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "results": {
+          "type": "array",
+          "description": "Array of disease risk predictions, sorted by probability (highest first)",
+          "items": {
+            "type": "object",
+            "fields": {
+              "disease_name": {
+                "type": "string",
+                "example": "Type-2 Diabetes"
+              },
+              "disease_id": {
+                "type": "string",
+                "example": "type2_diabetes"
+              },
+              "probability": {
+                "type": "number",
+                "range": [0.0, 0.99],
+                "example": 0.78
+              },
+              "risk_class": {
+                "type": "string",
+                "enum": ["I", "II", "III", "IV"],
+                "example": "IV"
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "Mother has this condition",
+                  "Sister has this condition",
+                  "HbA1c elevated at 6.2%, suggesting higher diabetes risk",
+                  "High sugar intake and poor dietary habits",
+                  "Sedentary lifestyle with minimal physical activity"
+                ]
+              },
+              "prevention": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "Eliminate sugary drinks and desserts immediately",
+                  "Reduce sugar and refined carbohydrates",
+                  "30 minutes moderate activity daily",
+                  "Control portion sizes"
+                ]
+              },
+              "recommended_tests": {
+                "type": "array",
+                "description": "Simple list for frontend display",
+                "items": {
+                  "type": "string"
+                },
+                "example": [
+                  "HbA1c (Glycated Hemoglobin)",
+                  "Fasting Blood Glucose",
+                  "Oral Glucose Tolerance Test (OGTT)"
+                ]
+              },
+              "recommended_tests_detail": {
+                "type": "array",
+                "description": "Detailed test information",
+                "items": {
+                  "type": "object",
+                  "fields": {
+                    "name": {
+                      "type": "string",
+                      "example": "HbA1c (Glycated Hemoglobin)"
+                    },
+                    "frequency": {
+                      "type": "string",
+                      "example": "Every 3-6 months if at risk"
+                    },
+                    "why": {
+                      "type": "string",
+                      "example": "Shows average blood sugar over past 3 months"
+                    },
+                    "normal_range": {
+                      "type": "string",
+                      "example": "<5.7%"
+                    }
+                  }
+                }
+              },
+              "consult": {
+                "type": "string",
+                "enum": ["none", "routine", "soon", "urgent"],
+                "example": "urgent"
+              },
+              "consult_detail": {
+                "type": "object",
+                "fields": {
+                  "level": {
+                    "type": "string",
+                    "example": "urgent"
+                  },
+                  "timeframe": {
+                    "type": "string",
+                    "example": "Schedule within 1-2 weeks"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Urgent consultation recommended - significant risk factors detected"
+                  },
+                  "specialist": {
+                    "type": "object",
+                    "fields": {
+                      "recommended": {
+                        "type": "string",
+                        "example": "Endocrinologist or Diabetologist"
+                      },
+                      "also_consider": {
+                        "type": "string",
+                        "example": "Primary Care Physician"
+                      }
+                    }
+                  },
+                  "what_to_discuss": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "preparation": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "example_request": {
+        "patient": {
+          "age": 32,
+          "gender": "F",
+          "weight": 78.5,
+          "height": 162,
+          "race": "asian",
+          "known_issues": []
+        },
+        "lifestyle": {
+          "smoking": false,
+          "alcohol": "occasional",
+          "exercise": "sedentary",
+          "diet": "high_sugar",
+          "sleep_hours": 6.5,
+          "stress_level": "high"
+        },
+        "family": [
+          {
+            "role": "mother",
+            "generation": 1,
+            "age": 58,
+            "gender": "F",
+            "weight": 65.0,
+            "height": 160,
+            "race": "asian",
+            "known_issues": ["type2_diabetes", "hypertension"]
+          },
+          {
+            "role": "father",
+            "generation": 1,
+            "age": 62,
+            "gender": "M",
+            "known_issues": ["cad"]
+          },
+          {
+            "role": "sister",
+            "generation": 0,
+            "age": 28,
+            "gender": "F",
+            "known_issues": ["type2_diabetes"]
+          },
+          {
+            "role": "maternal_grandmother",
+            "generation": 2,
+            "age": 82,
+            "gender": "F",
+            "known_issues": ["type2_diabetes", "hypertension"]
+          }
+        ],
+        "lab_values": {
+          "hba1c": 6.2,
+          "fasting_glucose": 115,
+          "ldl": 145,
+          "hdl": 38,
+          "triglycerides": 180,
+          "systolic_bp": 135,
+          "diastolic_bp": 88
+        }
+      },
+      "example_response": {
+        "success": true,
+        "results": [
+          {
+            "disease_name": "Type-2 Diabetes",
+            "disease_id": "type2_diabetes",
+            "probability": 0.82,
+            "risk_class": "IV",
+            "reasons": [
+              "Mother has this condition",
+              "Sister has this condition",
+              "Maternal Grandmother has this condition",
+              "HbA1c elevated at 6.2%, suggesting higher diabetes risk",
+              "High sugar intake and poor dietary habits"
+            ],
+            "prevention": [
+              "Eliminate sugary drinks and desserts immediately",
+              "Reduce sugar and refined carbohydrates",
+              "30 minutes moderate activity daily",
+              "Control portion sizes",
+              "Get 7-8 hours quality sleep"
+            ],
+            "recommended_tests": [
+              "HbA1c (Glycated Hemoglobin)",
+              "Fasting Blood Glucose",
+              "Oral Glucose Tolerance Test (OGTT)",
+              "Lipid Profile"
+            ],
+            "consult": "urgent",
+            "consult_detail": {
+              "level": "urgent",
+              "timeframe": "Schedule within 1-2 weeks",
+              "message": "Urgent consultation recommended - significant risk factors detected",
+              "specialist": {
+                "recommended": "Endocrinologist or Diabetologist",
+                "also_consider": "Primary Care Physician"
+              },
+              "what_to_discuss": [
+                "Urgency of intervention given your risk level",
+                "Your family medical history",
+                "Blood sugar levels and HbA1c results",
+                "Diet plan and carbohydrate management"
+              ],
+              "preparation": [
+                "Gather all recent medical records and test results",
+                "Create detailed family medical history (2 generations)",
+                "Log blood sugar readings if you have them",
+                "Keep food diary for 3-5 days before visit"
+              ]
+            }
+          }
+        ]
+      }
+    },
+
+
+
+
+
+    "ocr": {
+      "method": "POST",
+      "path": "/ocr",
+      "description": "Extract lab values from uploaded medical report",
+      "request_body": {
+        "file": {
+          "type": "binary",
+          "required": true,
+          "content_type": ["image/png", "image/jpeg", "application/pdf"],
+          "max_size": "10MB"
+        }
+      },
+      "response": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "lab_values": {
+          "type": "object",
+          "description": "Extracted lab values with normalized keys",
+          "example": {
+            "hba1c": 6.2,
+            "fasting_glucose": 115,
+            "ldl": 145,
+            "hdl": 38,
+            "triglycerides": 180,
+            "systolic_bp": 135,
+            "diastolic_bp": 88
+          }
+        }
+      }
+    },
+
+
+
+
+    
+    "health": {
+      "method": "GET",
+      "path": "/health",
+      "description": "Health check endpoint",
+      "response": {
+        "status": {
+          "type": "string",
+          "example": "healthy"
+        }
+      }
+    }
+  }
+}
