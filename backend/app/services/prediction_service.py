@@ -3,7 +3,7 @@ from app.schemas.prediction import RiskResponse, DiseaseRisk, RiskLevel, Recomme
 def predict_risk(payload):
     # TEMP / dummy logic
     return RiskResponse(
-        patient_name=""
+        patient_name="",
         results=[
             DiseaseRisk(
                 disease="diabetes",
