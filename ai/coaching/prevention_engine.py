@@ -42,13 +42,13 @@ def get_personalized_prevention(
     
     guidelines = load_guidelines()
     
-    
+    # Get disease-specific prevention
     disease_prevention = guidelines.get('disease_specific_prevention', {}).get(disease_id, {})
     
-    
+    # Get risk class guidance
     risk_info = guidelines.get('risk_classes', {}).get(risk_class, {})
     
-    
+    # Build personalized plan
     plan = {
         'summary': get_prevention_summary(disease_id, risk_class),
         'diet': personalize_diet_recommendations(disease_prevention.get('diet', []), user_data),
@@ -105,7 +105,7 @@ def get_prevention_summary(disease_id: str, risk_class: str) -> str:
 def personalize_diet_recommendations(base_diet: List[str], user_data: Dict) -> List[str]:
     """Personalize diet recommendations based on user profile"""
     
-    recommendations = list(base_diet[:5])  
+    recommendations = list(base_diet[:5])  # Start with base recommendations
     
     lifestyle = user_data.get('lifestyle', {})
     basic_info = user_data.get('basic_info', {})
@@ -113,7 +113,7 @@ def personalize_diet_recommendations(base_diet: List[str], user_data: Dict) -> L
     diet_type = lifestyle.get('diet', 'balanced')
     bmi = basic_info.get('bmi', 22)
     
-    
+    # Add personalized recommendations
     if bmi >= 25:
         recommendations.insert(0, "Focus on calorie control for weight management")
     
@@ -123,7 +123,7 @@ def personalize_diet_recommendations(base_diet: List[str], user_data: Dict) -> L
     if diet_type in ['high_fat', 'fast_food']:
         recommendations.insert(0, "Replace fried foods with grilled or baked alternatives")
     
-    return recommendations[:6]  
+    return recommendations[:6]  # Keep top 6
 
 
 def personalize_exercise_recommendations(base_exercise: List[str], user_data: Dict) -> List[str]:
@@ -138,7 +138,7 @@ def personalize_exercise_recommendations(base_exercise: List[str], user_data: Di
     age = basic_info.get('age', 30)
     bmi = basic_info.get('bmi', 22)
     
-    
+    # Customize based on current activity level
     if exercise_level in ['sedentary', 'none']:
         recommendations.insert(0, "Start with 10-minute walks, gradually increase to 30 minutes daily")
         recommendations.append("Begin with low-impact activities like walking or swimming")
@@ -159,7 +159,7 @@ def personalize_lifestyle_recommendations(base_lifestyle: List[str], user_data: 
     
     lifestyle = user_data.get('lifestyle', {})
     
-    
+    # Add specific recommendations based on user's current habits
     if lifestyle.get('smoking', False):
         recommendations.insert(0, "PRIORITY: Quit smoking - seek cessation support immediately")
     
@@ -217,7 +217,7 @@ def get_monitoring_recommendations(disease_id: str, risk_class: str) -> List[str
     
     recommendations = monitoring.get(disease_id, default)
     
-    
+    # Add frequency based on risk class
     if risk_class in ['III', 'IV']:
         recommendations.insert(0, "Weekly health metric tracking essential")
     

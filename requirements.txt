@@ -1,0 +1,15 @@
+# Core AI/ML Dependencies
+# None required - using rule-based scoring (no ML models for MVP)
+
+# For future ML integration (optional):
+# numpy>=1.24.0
+# pandas>=2.0.0
+# scikit-learn>=1.3.0
+
+# Python Standard Library (included by default)
+# json
+# pathlib
+# typing
+
+# Note: This module uses only Python standard library
+# No external dependencies required for basic functionality

@@ -82,7 +82,7 @@
         "smoking": true,
         "alcohol": "moderate",
         "exercise": "occasional",
-        "diet": "high_fat",
+        "diet": "high_fat_diet",
         "sleep_hours": 6.5,
         "stress_level": "moderate"
       },

@@ -31,30 +31,30 @@ def generate_reasons(
     disease_id = disease['id']
     disease_name = disease['name']
     
-    
+    # Family history reasons
     family_reasons = get_family_reasons(disease_id, user_data.get('family_history', {}))
     if family_reasons:
-        reasons.extend(family_reasons[:2])  
+        reasons.extend(family_reasons[:2])  # Top 2 family reasons
     
-    
+    # Lifestyle reasons
     lifestyle_reasons = get_lifestyle_reasons(
         disease.get('lifestyle_factors', []),
         user_data.get('lifestyle', {}),
         user_data.get('basic_info', {})
     )
     if lifestyle_reasons:
-        reasons.extend(lifestyle_reasons[:2])  
+        reasons.extend(lifestyle_reasons[:2])  # Top 2 lifestyle reasons
     
-    
+    # Lab/biomarker reasons
     lab_reasons = get_lab_reasons(
         disease.get('lab_markers', []),
         user_data.get('lab_values', {}),
         disease.get('thresholds', {})
     )
     if lab_reasons:
-        reasons.extend(lab_reasons[:2])  
+        reasons.extend(lab_reasons[:2])  # Top 2 lab reasons
     
-    
+    # If no specific reasons found, provide general reason based on scores
     if not reasons:
         if family_score > 0.4:
             reasons.append("Family history indicates genetic predisposition")
@@ -63,12 +63,12 @@ def generate_reasons(
         if lab_score > 0.5:
             reasons.append("Biomarkers show concerning patterns")
     
-    
+    # Add age factor if relevant
     age = user_data.get('basic_info', {}).get('age', 30)
     if disease_id in ['type2_diabetes', 'cad', 'hypertension'] and age > 50:
         reasons.append(f"Age ({age}) increases risk for this condition")
     
-    return reasons[:5]  
+    return reasons[:5]  # Return max 5 reasons
 
 
 def get_family_reasons(disease_id: str, family_history: Dict) -> List[str]:
@@ -81,17 +81,17 @@ def get_family_reasons(disease_id: str, family_history: Dict) -> List[str]:
     affected_gen1 = []
     affected_gen2 = []
     
-    
+    # Check generation 1
     for relation, conditions in gen1.items():
         if isinstance(conditions, dict) and conditions.get(disease_id, False):
             affected_gen1.append(relation.replace('_', ' ').title())
     
-    
+    # Check generation 2
     for relation, conditions in gen2.items():
         if isinstance(conditions, dict) and conditions.get(disease_id, False):
             affected_gen2.append(relation.replace('_', ' ').title())
     
-    
+    # Build reason strings
     if affected_gen1:
         if len(affected_gen1) == 1:
             reasons.append(f"{affected_gen1[0]} has this condition")
@@ -153,7 +153,7 @@ def get_lifestyle_reasons(lifestyle_factors: List[str], lifestyle: Dict, basic_i
             if stress in ['high', 'severe']:
                 reasons.append("Chronic high stress levels")
     
-    
+    # Sleep issues
     sleep_hours = lifestyle.get('sleep_hours', 7)
     if sleep_hours < 6:
         reasons.append(f"Insufficient sleep ({sleep_hours} hours nightly)")
@@ -171,7 +171,7 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
         
         value = lab_values[marker]
         
-        
+        # HbA1c
         if marker == 'hba1c':
             diabetic = thresholds.get('hba1c_diabetic', 6.5)
             prediabetic = thresholds.get('hba1c_prediabetic', 5.7)
@@ -181,7 +181,7 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
             elif value >= prediabetic:
                 reasons.append(f"HbA1c at {value}% indicates prediabetic state")
         
-        
+        # Fasting glucose
         elif marker == 'fasting_glucose':
             diabetic = thresholds.get('fasting_glucose_diabetic', 126)
             prediabetic = thresholds.get('fasting_glucose_prediabetic', 100)
@@ -191,7 +191,7 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
             elif value >= prediabetic:
                 reasons.append(f"Fasting glucose {value} mg/dL (prediabetic)")
         
-        
+        # LDL cholesterol
         elif marker == 'ldl':
             very_high = thresholds.get('ldl_very_high', 190)
             high = thresholds.get('ldl_high', 130)
@@ -201,14 +201,14 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
             elif value >= high:
                 reasons.append(f"LDL cholesterol elevated at {value} mg/dL")
         
-        
+        # HDL cholesterol
         elif marker == 'hdl':
             low = thresholds.get('hdl_low', 40)
             
             if value < low:
                 reasons.append(f"HDL cholesterol low at {value} mg/dL")
         
-        
+        # Triglycerides
         elif marker == 'triglycerides':
             high = thresholds.get('triglycerides_high', 150)
             
@@ -217,7 +217,7 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
             elif value >= high:
                 reasons.append(f"Triglycerides elevated at {value} mg/dL")
         
-        
+        # Blood pressure
         elif marker == 'systolic_bp':
             if value >= 140:
                 reasons.append(f"Systolic blood pressure high at {value} mmHg")
@@ -228,19 +228,19 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
             if value >= 90:
                 reasons.append(f"Diastolic blood pressure high at {value} mmHg")
         
-        
+        # TSH
         elif marker == 'tsh':
             high = thresholds.get('tsh_high', 4.5)
             if value >= high:
                 reasons.append(f"TSH elevated at {value} mIU/L")
         
-        
+        # Hemoglobin
         elif marker == 'hemoglobin':
             low = thresholds.get('hemoglobin_low', 12.0)
             if value < low:
                 reasons.append(f"Hemoglobin low at {value} g/dL (anemia)")
         
-        
+        # Total cholesterol
         elif marker == 'total_cholesterol':
             very_high = thresholds.get('total_cholesterol_very_high', 300)
             high = thresholds.get('total_cholesterol_high', 200)

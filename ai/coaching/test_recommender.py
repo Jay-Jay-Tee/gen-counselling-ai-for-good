@@ -40,7 +40,7 @@ def get_recommended_tests(
     if not disease_tests:
         return []
     
-    
+    # Filter and prioritize based on risk class
     recommended = []
     
     for test in disease_tests:
@@ -56,10 +56,10 @@ def get_recommended_tests(
             }
             recommended.append(test_info)
     
-    
+    # Sort by priority (descending)
     recommended.sort(key=lambda x: x['priority'], reverse=True)
     
-    
+    # Return top tests based on risk class
     max_tests = {
         'I': 2,
         'II': 3,
@@ -81,10 +81,10 @@ def calculate_test_priority(
     Higher score = more important
     """
     
-    priority = 5  
+    priority = 5  # Base priority
     test_name = test['name'].lower()
     
-    
+    # Risk class multiplier
     risk_multipliers = {
         'I': 0.5,
         'II': 1.0,
@@ -93,7 +93,7 @@ def calculate_test_priority(
     }
     priority *= risk_multipliers.get(risk_class, 1.0)
     
-    
+    # Disease-specific priorities
     if disease_id == 'type2_diabetes':
         if 'hba1c' in test_name or 'glucose' in test_name:
             priority += 3
@@ -122,7 +122,7 @@ def calculate_test_priority(
         if 'lipid' in test_name or 'apob' in test_name:
             priority += 3
     
-    
+    # Age-based adjustments
     age = user_data.get('basic_info', {}).get('age', 30)
     
     if age > 40:
@@ -133,14 +133,14 @@ def calculate_test_priority(
         if any(word in test_name for word in ['calcium score', 'mammogram', 'colonoscopy']):
             priority += 2
     
-    
+    # Gender-specific
     gender = user_data.get('basic_info', {}).get('gender', 'unknown')
     
     if gender == 'female':
         if any(word in test_name for word in ['breast', 'mammogram', 'ovarian', 'ca-125']):
             priority += 2
     
-    
+    # Family history boost
     family_history = user_data.get('family_history', {})
     if has_family_history_for_disease(family_history, disease_id):
         if 'genetic' in test_name:
@@ -161,7 +161,7 @@ def adjust_frequency(base_frequency: str, risk_class: str) -> str:
             'Annually': 'Every 1-2 years'
         },
         'II': {
-            
+            # Use base frequency
         },
         'III': {
             'Annually': 'Every 6 months',
@@ -247,7 +247,7 @@ def get_test_cost_estimate(test_name: str, region: str = 'india') -> Dict[str, A
     Note: These are rough estimates for demo purposes
     """
     
-    
+    # Rough estimates for India (INR)
     india_costs = {
         'hba1c': {'min': 300, 'max': 800, 'currency': 'INR'},
         'fasting blood glucose': {'min': 100, 'max': 300, 'currency': 'INR'},

@@ -2,7 +2,7 @@
   "risk_classes": {
     "I": {
       "label": "Low Risk",
-      "description": "Minimal genetic or lifestyle risk detected",
+      "description": "Minimal family-history based or lifestyle risk detected",
       "color": "#22c55e",
       "prevention": [
         "Maintain current healthy habits",
@@ -34,7 +34,7 @@
         "Consult healthcare provider soon",
         "Get recommended screening tests urgently",
         "Strict diet and exercise plan needed",
-        "Consider genetic counseling if family history strong",
+        "Consider genetic counseling if strong family history",
         "Monitor key health metrics weekly"
       ],
       "consult": "Consult doctor within 1 month"
@@ -150,7 +150,7 @@
       ],
       "lifestyle": [
         "Genetic counseling strongly advised",
-        "Consider BRCA testing if family history",
+        "Consider BRCA testing if family history present",
         "Regular breast self-examination",
         "Discuss preventive options with doctor",
         "Avoid hormone replacement therapy if possible",

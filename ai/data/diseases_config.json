@@ -119,5 +119,11 @@
         "testosterone_high": 50
       }
     }
-  ]
+  ],
+  "risk_class_thresholds": {
+    "I": {"min": 0.0, "max": 0.30, "label": "Low Risk"},
+    "II": {"min": 0.30, "max": 0.55, "label": "Moderate Risk"},
+    "III": {"min": 0.55, "max": 0.75, "label": "High Risk"},
+    "IV": {"min": 0.75, "max": 1.0, "label": "Very High Risk"}
+  }
 }

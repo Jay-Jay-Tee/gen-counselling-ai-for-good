@@ -25,16 +25,16 @@ def get_consult_urgency(
         Dictionary with urgency level, timeframe, and guidance
     """
     
-    
+    # Base urgency from risk class and probability
     urgency_level = determine_urgency_level(risk_class, probability)
     
-    
+    # Check for red flag conditions that escalate urgency
     urgency_level = check_red_flags(disease_id, user_data, urgency_level)
     
-    
+    # Get urgency details
     urgency_info = get_urgency_info(urgency_level)
     
-    
+    # Add disease-specific consultation guidance
     specialist_info = get_specialist_recommendation(disease_id, risk_class)
     
     return {
@@ -73,7 +73,7 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
     basic_info = user_data.get('basic_info', {})
     family_history = user_data.get('family_history', {})
     
-    
+    # Critical lab values
     if disease_id == 'type2_diabetes':
         hba1c = lab_values.get('hba1c', 0)
         fasting_glucose = lab_values.get('fasting_glucose', 0)
@@ -88,7 +88,7 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
         if ldl >= 190 or systolic >= 160:
             return 'urgent'
         
-        
+        # Smoking + high cholesterol + family history = urgent
         if lifestyle.get('smoking') and ldl >= 150:
             gen1 = family_history.get('generation_1', {})
             for person in gen1.values():
@@ -103,7 +103,7 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
             return 'urgent'
     
     elif disease_id == 'breast_ovarian_cancer':
-        
+        # Multiple first-degree relatives = urgent genetic counseling
         gen1 = family_history.get('generation_1', {})
         affected_count = sum(
             1 for person in gen1.values()
@@ -112,12 +112,12 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
         if affected_count >= 2:
             return 'urgent'
     
-    
+    # Age-based escalation
     age = basic_info.get('age', 30)
     if age > 50 and current_urgency == 'routine':
         return 'soon'
     
-    
+    # BMI-based escalation for metabolic diseases
     if disease_id in ['type2_diabetes', 'hypertension', 'pcos']:
         bmi = basic_info.get('bmi', 22)
         if bmi >= 35 and current_urgency == 'routine':
@@ -215,7 +215,7 @@ def get_specialist_recommendation(disease_id: str, risk_class: str) -> Dict[str,
     
     spec_info = specialists.get(disease_id, default)
     
-    
+    # Determine which doctor to recommend
     if risk_class in ['III', 'IV'] or spec_info['when_specialist'] in ['Any risk class', 'II or higher']:
         recommended = spec_info['primary']
     else:
