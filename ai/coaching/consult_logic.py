@@ -71,7 +71,7 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
     lab_values = user_data.get('lab_values', {})
     lifestyle = user_data.get('lifestyle', {})
     basic_info = user_data.get('basic_info', {})
-    family_history = user_data.get('family_history', {})
+    family_history = user_data.get('family_history', [])
     
     # Critical lab values
     if disease_id == 'type2_diabetes':
@@ -90,9 +90,9 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
         
         # Smoking + high cholesterol + family history = urgent
         if lifestyle.get('smoking') and ldl >= 150:
-            gen1 = family_history.get('generation_1', {})
-            for person in gen1.values():
-                if isinstance(person, dict) and person.get('cad'):
+            # Check for family history of CAD
+            for member in family_history:
+                if member.get('cad', False):
                     return 'urgent'
     
     elif disease_id == 'hypertension':
@@ -104,12 +104,19 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
     
     elif disease_id == 'breast_ovarian_cancer':
         # Multiple first-degree relatives = urgent genetic counseling
-        gen1 = family_history.get('generation_1', {})
-        affected_count = sum(
-            1 for person in gen1.values()
-            if isinstance(person, dict) and person.get('breast_ovarian_cancer')
+        # First degree: parents (gen 1), siblings (gen 0), children (gen -1)
+        first_degree_count = sum(
+            1 for member in family_history
+            if member.get('generation') in [-1, 0, 1] and member.get('breast_ovarian_cancer', False)
         )
-        if affected_count >= 2:
+        
+        gen2_count = sum(
+            1 for member in family_history
+            if member.get('generation') == 2 and member.get('breast_ovarian_cancer', False)
+        )
+        
+        # If 2+ first-degree relatives OR 1 first-degree + 2 second-degree
+        if first_degree_count >= 2 or (first_degree_count >= 1 and gen2_count >= 2):
             return 'urgent'
     
     # Age-based escalation

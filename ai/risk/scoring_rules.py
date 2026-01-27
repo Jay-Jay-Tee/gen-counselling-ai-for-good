@@ -3,7 +3,7 @@ Scoring logic for family history, lifestyle, and lab values
 Returns normalized scores (0.0 - 1.0) for each component
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 
 def normalize_lab_key(key: str) -> str:
@@ -31,13 +31,18 @@ def normalize_lab_key(key: str) -> str:
     return key_lower
 
 
-def calculate_family_score(disease: Dict, family_history: Dict) -> float:
+def calculate_family_score(disease: Dict, family_history: List[Dict]) -> float:
     """
     Calculate family history risk score
     
     Args:
         disease: Disease configuration dict
-        family_history: {generation_1: {...}, generation_2: {...}}
+        family_history: List of family members with format:
+            [
+                {"role": "mother", "generation": 1, "type2_diabetes": true},
+                {"role": "sister", "generation": 0, "hypertension": true},
+                {"role": "daughter", "generation": -1, "asthma": true}
+            ]
     
     Returns:
         Score between 0.0 and 1.0
@@ -48,26 +53,34 @@ def calculate_family_score(disease: Dict, family_history: Dict) -> float:
     disease_id = disease['id']
     score = 0.0
     
-    # Generation 1 (parents) - higher weight
-    gen1 = family_history.get('generation_1', {})
-    gen1_count = 0
+    # Count affected relatives by generation
+    gen_minus1_count = 0  # Children
+    gen0_count = 0        # Siblings
+    gen1_count = 0        # Parents
+    gen2_count = 0        # Grandparents/Aunts/Uncles
     
-    for relation, conditions in gen1.items():
-        if isinstance(conditions, dict) and conditions.get(disease_id, False):
-            gen1_count += 1
-    
-    # Generation 2 (grandparents, aunts/uncles) - lower weight
-    gen2 = family_history.get('generation_2', {})
-    gen2_count = 0
-    
-    for relation, conditions in gen2.items():
-        if isinstance(conditions, dict) and conditions.get(disease_id, False):
-            gen2_count += 1
+    for member in family_history:
+        # Check if this member has the disease
+        if member.get(disease_id, False):
+            generation = member.get('generation', 2)
+            
+            if generation == -1:
+                gen_minus1_count += 1
+            elif generation == 0:
+                gen0_count += 1
+            elif generation == 1:
+                gen1_count += 1
+            else:  # generation == 2
+                gen2_count += 1
     
     # Scoring logic
-    # Gen 1: each affected = +0.30, max 0.60 (both parents)
-    # Gen 2: each affected = +0.10, max 0.30 (3+ relatives)
+    # Gen -1 (Children): each affected = +0.25, max 0.50
+    # Gen 0 (Siblings): each affected = +0.25, max 0.50
+    # Gen 1 (Parents): each affected = +0.30, max 0.60
+    # Gen 2 (Extended): each affected = +0.10, max 0.30
     
+    score += min(gen_minus1_count * 0.25, 0.50)
+    score += min(gen0_count * 0.25, 0.50)
     score += min(gen1_count * 0.30, 0.60)
     score += min(gen2_count * 0.10, 0.30)
     

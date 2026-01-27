@@ -242,10 +242,11 @@ The AI-2 module is responsible for:
 {
   "basic_info": {"age": 32, "gender": "female", "bmi": 29.7},
   "lifestyle": {"diet": "high_sugar", "exercise": "sedentary", "smoking": false},
-  "family_history": {
-    "generation_1": {"mother": {"type2_diabetes": true}},
-    "generation_2": {"maternal_grandmother": {"type2_diabetes": true}}
-  },
+  "family_history": [
+    {"role": "mother", "generation": 1, "type2_diabetes": true},
+    {"role": "sister", "generation": 0, "type2_diabetes": true},
+    {"role": "maternal_grandmother", "generation": 2, "type2_diabetes": true}
+  ],
   "lab_values": {"hba1c": 6.2, "fasting_glucose": 115, "ldl": 145}
 }
 ```
@@ -261,7 +262,11 @@ The AI-2 module is responsible for:
 - `consult`: Consultation urgency (none/routine/soon/urgent)
 
 **Scoring Algorithm:**
-- **Family Score (40%)**: Weighted by generation (Gen 1 = 0.30, Gen 2 = 0.10 per relative)
+- **Family Score (40%)**: Weighted by generation proximity
+  - Generation -1 (Children): 0.25 per person
+  - Generation 0 (Siblings): 0.25 per person
+  - Generation 1 (Parents): 0.30 per person
+  - Generation 2 (Extended): 0.10 per person
 - **Lifestyle Score (35%)**: Matches user habits against disease risk factors
 - **Lab Score (25%)**: Compares biomarkers against clinical thresholds
 
@@ -522,7 +527,7 @@ print(results[0])  # Top risk disease
 
 ## 📄 License
 
-[Coming Soon!]
+[Add your license here]
 
 ---
 
@@ -537,7 +542,7 @@ print(results[0])  # Top risk disease
 
 ## 📧 Contact
 
-[Coming Soon!]
+[Add team contact information]
 
 **Last Updated:** January 27, 2026  
 **Hackathon:** AI for Good Challenge 2026

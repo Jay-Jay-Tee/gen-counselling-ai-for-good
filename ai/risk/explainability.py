@@ -31,10 +31,12 @@ def generate_reasons(
     disease_id = disease['id']
     disease_name = disease['name']
     
+    # Get consult urgency to prioritize critical lab reasons
+    probability = (family_score * 0.40 + lifestyle_score * 0.35 + lab_score * 0.25)
+    is_urgent = probability >= 0.75
+    
     # Family history reasons
-    family_reasons = get_family_reasons(disease_id, user_data.get('family_history', {}))
-    if family_reasons:
-        reasons.extend(family_reasons[:2])  # Top 2 family reasons
+    family_reasons = get_family_reasons(disease_id, user_data.get('family_history', []))
     
     # Lifestyle reasons
     lifestyle_reasons = get_lifestyle_reasons(
@@ -42,8 +44,6 @@ def generate_reasons(
         user_data.get('lifestyle', {}),
         user_data.get('basic_info', {})
     )
-    if lifestyle_reasons:
-        reasons.extend(lifestyle_reasons[:2])  # Top 2 lifestyle reasons
     
     # Lab/biomarker reasons
     lab_reasons = get_lab_reasons(
@@ -51,13 +51,27 @@ def generate_reasons(
         user_data.get('lab_values', {}),
         disease.get('thresholds', {})
     )
-    if lab_reasons:
-        reasons.extend(lab_reasons[:2])  # Top 2 lab reasons
+    
+    # If urgent, prioritize lab reasons first
+    if is_urgent and lab_reasons:
+        reasons.extend(lab_reasons[:2])  # Top 2 lab reasons first
+        if family_reasons:
+            reasons.extend(family_reasons[:1])
+        if lifestyle_reasons:
+            reasons.extend(lifestyle_reasons[:1])
+    else:
+        # Normal priority: family, lifestyle, lab
+        if family_reasons:
+            reasons.extend(family_reasons[:2])
+        if lifestyle_reasons:
+            reasons.extend(lifestyle_reasons[:2])
+        if lab_reasons:
+            reasons.extend(lab_reasons[:2])
     
     # If no specific reasons found, provide general reason based on scores
     if not reasons:
         if family_score > 0.4:
-            reasons.append("Family history indicates genetic predisposition")
+            reasons.append("Family history indicates predisposition")
         if lifestyle_score > 0.5:
             reasons.append("Lifestyle factors increase risk")
         if lab_score > 0.5:
@@ -71,38 +85,63 @@ def generate_reasons(
     return reasons[:5]  # Return max 5 reasons
 
 
-def get_family_reasons(disease_id: str, family_history: Dict) -> List[str]:
-    """Extract family history reasons"""
+def get_family_reasons(disease_id: str, family_history: List[Dict]) -> List[str]:
+    """Extract family history reasons from array format"""
     reasons = []
     
-    gen1 = family_history.get('generation_1', {})
-    gen2 = family_history.get('generation_2', {})
+    if not family_history:
+        return reasons
     
-    affected_gen1 = []
-    affected_gen2 = []
+    affected_by_generation = {
+        -1: [],  # Children
+        0: [],   # Siblings
+        1: [],   # Parents
+        2: []    # Extended family
+    }
     
-    # Check generation 1
-    for relation, conditions in gen1.items():
-        if isinstance(conditions, dict) and conditions.get(disease_id, False):
-            affected_gen1.append(relation.replace('_', ' ').title())
+    # Group affected members by generation
+    for member in family_history:
+        if member.get(disease_id, False):
+            role = member.get('role', 'unknown')
+            generation = member.get('generation', 2)
+            
+            # Format role name nicely
+            role_label = role.replace('_', ' ').title()
+            
+            if generation in affected_by_generation:
+                affected_by_generation[generation].append(role_label)
     
-    # Check generation 2
-    for relation, conditions in gen2.items():
-        if isinstance(conditions, dict) and conditions.get(disease_id, False):
-            affected_gen2.append(relation.replace('_', ' ').title())
+    # Build reason strings prioritizing closer generations
     
-    # Build reason strings
-    if affected_gen1:
-        if len(affected_gen1) == 1:
-            reasons.append(f"{affected_gen1[0]} has this condition")
+    # Parents (Gen 1) - Highest priority
+    if affected_by_generation[1]:
+        if len(affected_by_generation[1]) == 1:
+            reasons.append(f"{affected_by_generation[1][0]} has this condition")
         else:
-            reasons.append(f"Multiple immediate family members affected ({', '.join(affected_gen1)})")
+            reasons.append(f"Both parents affected: {' and '.join(affected_by_generation[1])}")
     
-    if affected_gen2:
-        if len(affected_gen2) == 1:
-            reasons.append(f"{affected_gen2[0]} has this condition")
-        elif len(affected_gen2) >= 2:
-            reasons.append(f"Multiple relatives in previous generation affected")
+    # Siblings (Gen 0)
+    if affected_by_generation[0]:
+        if len(affected_by_generation[0]) == 1:
+            reasons.append(f"{affected_by_generation[0][0]} has this condition")
+        else:
+            reasons.append(f"{len(affected_by_generation[0])} siblings affected by this condition")
+    
+    # Children (Gen -1) - Important for hereditary conditions
+    if affected_by_generation[-1]:
+        if len(affected_by_generation[-1]) == 1:
+            reasons.append(f"{affected_by_generation[-1][0]} has this condition")
+        else:
+            reasons.append(f"{len(affected_by_generation[-1])} children affected")
+    
+    # Extended family (Gen 2)
+    if affected_by_generation[2]:
+        if len(affected_by_generation[2]) == 1:
+            reasons.append(f"{affected_by_generation[2][0]} has this condition")
+        elif len(affected_by_generation[2]) == 2:
+            reasons.append(f"{' and '.join(affected_by_generation[2])} have this condition")
+        else:
+            reasons.append(f"{len(affected_by_generation[2])} relatives in previous generation affected")
     
     return reasons
 
@@ -112,13 +151,14 @@ def get_lifestyle_reasons(lifestyle_factors: List[str], lifestyle: Dict, basic_i
     reasons = []
     
     bmi = basic_info.get('bmi', 22)
+    diet = lifestyle.get('diet', 'balanced')
     
     for factor in lifestyle_factors:
         if factor == 'obesity' and bmi >= 30:
-            reasons.append(f"BMI of {bmi:.1f} indicates obesity")
+            reasons.append(f"BMI of {bmi:.1f} indicates obesity, increasing risk")
         
         elif factor == 'obesity' and bmi >= 25:
-            reasons.append(f"BMI of {bmi:.1f} indicates overweight")
+            reasons.append(f"BMI of {bmi:.1f} indicates overweight status")
         
         elif factor == 'sedentary':
             exercise = lifestyle.get('exercise', 'regular')
@@ -126,27 +166,21 @@ def get_lifestyle_reasons(lifestyle_factors: List[str], lifestyle: Dict, basic_i
                 reasons.append("Sedentary lifestyle with minimal physical activity")
         
         elif factor == 'smoking' and lifestyle.get('smoking', False):
-            reasons.append("Current smoker")
+            reasons.append("Current smoking significantly elevates risk")
         
         elif factor == 'alcohol':
             alcohol = lifestyle.get('alcohol', 'none')
             if alcohol in ['heavy', 'frequent', 'daily']:
                 reasons.append("Heavy alcohol consumption")
         
-        elif factor == 'high_sugar':
-            diet = lifestyle.get('diet', 'balanced')
-            if diet in ['high_sugar', 'poor', 'junk_food']:
-                reasons.append("High sugar intake and poor dietary habits")
+        elif factor == 'high_sugar' and diet == 'high_sugar':
+            reasons.append("High sugar intake and poor dietary habits")
         
-        elif factor == 'high_fat_diet':
-            diet = lifestyle.get('diet', 'balanced')
-            if diet in ['high_fat', 'fried', 'fast_food']:
-                reasons.append("High-fat diet with frequent fried foods")
+        elif factor == 'high_fat_diet' and diet == 'high_fat_diet':
+            reasons.append("High-fat diet with frequent fried foods")
         
-        elif factor == 'high_salt':
-            diet = lifestyle.get('diet', 'balanced')
-            if diet in ['high_salt', 'processed']:
-                reasons.append("High sodium intake from processed foods")
+        elif factor == 'high_salt' and diet == 'high_salt':
+            reasons.append("High sodium intake from processed foods")
         
         elif factor == 'stress':
             stress = lifestyle.get('stress_level', 'low')
@@ -162,14 +196,25 @@ def get_lifestyle_reasons(lifestyle_factors: List[str], lifestyle: Dict, basic_i
 
 
 def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) -> List[str]:
-    """Extract lab/biomarker-based reasons"""
+    """Extract lab/biomarker-based reasons - use non-diagnostic language"""
     reasons = []
     
+    # Normalize lab keys (handle OCR variations)
+    normalized_labs = {}
+    for k, v in lab_values.items():
+        key_lower = k.lower().replace(' ', '_').replace('-', '_')
+        normalized_labs[key_lower] = v
+    
     for marker in lab_markers:
-        if marker not in lab_values:
-            continue
+        # Check both exact and normalized keys
+        value = None
+        if marker in lab_values:
+            value = lab_values[marker]
+        elif marker in normalized_labs:
+            value = normalized_labs[marker]
         
-        value = lab_values[marker]
+        if value is None:
+            continue
         
         # HbA1c
         if marker == 'hba1c':
@@ -177,9 +222,9 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
             prediabetic = thresholds.get('hba1c_prediabetic', 5.7)
             
             if value >= diabetic:
-                reasons.append(f"HbA1c elevated at {value}% (diabetic range)")
+                reasons.append(f"HbA1c elevated at {value}%, suggesting higher diabetes risk")
             elif value >= prediabetic:
-                reasons.append(f"HbA1c at {value}% indicates prediabetic state")
+                reasons.append(f"HbA1c at {value}% indicates prediabetic pattern")
         
         # Fasting glucose
         elif marker == 'fasting_glucose':
@@ -187,9 +232,9 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
             prediabetic = thresholds.get('fasting_glucose_prediabetic', 100)
             
             if value >= diabetic:
-                reasons.append(f"Fasting glucose {value} mg/dL (diabetic range)")
+                reasons.append(f"Fasting glucose {value} mg/dL indicates diabetic range")
             elif value >= prediabetic:
-                reasons.append(f"Fasting glucose {value} mg/dL (prediabetic)")
+                reasons.append(f"Fasting glucose {value} mg/dL suggests prediabetic state")
         
         # LDL cholesterol
         elif marker == 'ldl':
@@ -206,7 +251,7 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
             low = thresholds.get('hdl_low', 40)
             
             if value < low:
-                reasons.append(f"HDL cholesterol low at {value} mg/dL")
+                reasons.append(f"HDL cholesterol low at {value} mg/dL, reducing protection")
         
         # Triglycerides
         elif marker == 'triglycerides':
@@ -232,13 +277,13 @@ def get_lab_reasons(lab_markers: List[str], lab_values: Dict, thresholds: Dict) 
         elif marker == 'tsh':
             high = thresholds.get('tsh_high', 4.5)
             if value >= high:
-                reasons.append(f"TSH elevated at {value} mIU/L")
+                reasons.append(f"TSH elevated at {value} mIU/L, suggesting thyroid dysfunction")
         
         # Hemoglobin
         elif marker == 'hemoglobin':
             low = thresholds.get('hemoglobin_low', 12.0)
             if value < low:
-                reasons.append(f"Hemoglobin low at {value} g/dL (anemia)")
+                reasons.append(f"Hemoglobin low at {value} g/dL, indicating anemia pattern")
         
         # Total cholesterol
         elif marker == 'total_cholesterol':

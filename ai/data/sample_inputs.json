@@ -1,318 +1,215 @@
 {
-  "disease_tests": {
-    "type2_diabetes": [
-      {
-        "name": "HbA1c (Glycated Hemoglobin)",
-        "frequency": "Every 3-6 months if at risk, annually otherwise",
-        "why": "Shows average blood sugar over past 3 months",
-        "normal_range": "<5.7%"
+  "demo_cases": {
+    "case_a_low_risk": {
+      "name": "Low Risk Demo",
+      "description": "Healthy young adult, no family history, good habits",
+      "basic_info": {
+        "age": 24,
+        "gender": "male",
+        "height": 175,
+        "weight": 70,
+        "bmi": 22.9
       },
-      {
-        "name": "Fasting Blood Glucose",
-        "frequency": "Every 6 months if at risk",
-        "why": "Measures blood sugar after overnight fast",
-        "normal_range": "70-99 mg/dL"
+      "lifestyle": {
+        "smoking": false,
+        "alcohol": "none",
+        "exercise": "regular",
+        "diet": "balanced",
+        "sleep_hours": 7.5,
+        "stress_level": "low"
       },
-      {
-        "name": "Oral Glucose Tolerance Test (OGTT)",
-        "frequency": "If HbA1c or fasting glucose borderline",
-        "why": "Tests how body processes sugar over time",
-        "normal_range": "<140 mg/dL at 2 hours"
+      "family_history": [],
+      "lab_values": {}
+    },
+    "case_b_high_diabetes_risk": {
+      "name": "High Diabetes Risk Demo",
+      "description": "Mother diabetic, sister diabetic, high sugar intake, elevated HbA1c from OCR",
+      "basic_info": {
+        "age": 32,
+        "gender": "female",
+        "height": 162,
+        "weight": 78,
+        "bmi": 29.7
       },
-      {
-        "name": "Lipid Profile",
-        "frequency": "Annually",
-        "why": "Diabetes often associated with cholesterol issues",
-        "normal_range": "Varies by component"
+      "lifestyle": {
+        "smoking": false,
+        "alcohol": "occasional",
+        "exercise": "sedentary",
+        "diet": "high_sugar",
+        "sleep_hours": 6,
+        "stress_level": "high"
+      },
+      "family_history": [
+        {
+          "role": "mother",
+          "generation": 1,
+          "type2_diabetes": true,
+          "hypertension": true
+        },
+        {
+          "role": "sister",
+          "generation": 0,
+          "type2_diabetes": true
+        },
+        {
+          "role": "maternal_grandmother",
+          "generation": 2,
+          "type2_diabetes": true
+        }
+      ],
+      "lab_values": {
+        "hba1c": 6.2,
+        "fasting_glucose": 115,
+        "ldl": 145,
+        "hdl": 38,
+        "triglycerides": 180,
+        "systolic_bp": 135,
+        "diastolic_bp": 88
       }
-    ],
-    "cad": [
-      {
-        "name": "Lipid Profile (Complete)",
-        "frequency": "Every 1-2 years if at risk",
-        "why": "Measures cholesterol and triglycerides",
-        "normal_range": "LDL <100, HDL >40, TG <150 mg/dL"
+    },
+    "case_c_mixed_risk": {
+      "name": "Mixed Risk Profile",
+      "description": "Father with CAD, brother with asthma, moderate lifestyle issues",
+      "basic_info": {
+        "age": 28,
+        "gender": "male",
+        "height": 180,
+        "weight": 85,
+        "bmi": 26.2
       },
-      {
-        "name": "Blood Pressure Monitoring",
-        "frequency": "At least every visit, home monitoring if elevated",
-        "why": "Hypertension is major CAD risk factor",
-        "normal_range": "<120/80 mmHg"
+      "lifestyle": {
+        "smoking": true,
+        "alcohol": "moderate",
+        "exercise": "occasional",
+        "diet": "high_fat_diet",
+        "sleep_hours": 6.5,
+        "stress_level": "moderate"
       },
-      {
-        "name": "ECG (Electrocardiogram)",
-        "frequency": "Baseline, then as recommended",
-        "why": "Detects heart rhythm and structure abnormalities",
-        "normal_range": "Normal sinus rhythm"
-      },
-      {
-        "name": "hs-CRP (High Sensitivity C-Reactive Protein)",
-        "frequency": "If at moderate risk",
-        "why": "Marker of inflammation in arteries",
-        "normal_range": "<1.0 mg/L low risk"
-      },
-      {
-        "name": "Stress Test / TMT",
-        "frequency": "If symptoms or high risk",
-        "why": "Tests heart function under stress",
-        "normal_range": "No ischemia detected"
-      },
-      {
-        "name": "Coronary Calcium Score CT",
-        "frequency": "Once if high risk, age 40+",
-        "why": "Measures calcium buildup in arteries",
-        "normal_range": "0 is ideal"
+      "family_history": [
+        {
+          "role": "father",
+          "generation": 1,
+          "cad": true,
+          "hypertension": true
+        },
+        {
+          "role": "mother",
+          "generation": 1,
+          "hypothyroidism": true
+        },
+        {
+          "role": "brother",
+          "generation": 0,
+          "asthma": true
+        },
+        {
+          "role": "paternal_grandfather",
+          "generation": 2,
+          "cad": true
+        }
+      ],
+      "lab_values": {
+        "ldl": 160,
+        "hdl": 35,
+        "triglycerides": 165,
+        "total_cholesterol": 225,
+        "systolic_bp": 128,
+        "diastolic_bp": 82
       }
-    ],
-    "hypertension": [
-      {
-        "name": "Blood Pressure Monitoring",
-        "frequency": "Monthly or as directed, home monitoring",
-        "why": "Track blood pressure trends",
-        "normal_range": "<120/80 mmHg"
+    },
+    "case_d_genetic_risk": {
+      "name": "Strong Genetic Risk",
+      "description": "Multiple family members with hereditary conditions across 3 generations",
+      "basic_info": {
+        "age": 25,
+        "gender": "female",
+        "height": 165,
+        "weight": 60,
+        "bmi": 22.0
       },
-      {
-        "name": "Kidney Function Tests (Creatinine, eGFR)",
-        "frequency": "Annually",
-        "why": "Hypertension can damage kidneys",
-        "normal_range": "Creatinine 0.6-1.2 mg/dL, eGFR >90"
+      "lifestyle": {
+        "smoking": false,
+        "alcohol": "none",
+        "exercise": "regular",
+        "diet": "balanced",
+        "sleep_hours": 7,
+        "stress_level": "low"
       },
-      {
-        "name": "Urinalysis",
-        "frequency": "Annually",
-        "why": "Check for protein indicating kidney damage",
-        "normal_range": "No protein"
-      },
-      {
-        "name": "ECG",
-        "frequency": "Baseline and as needed",
-        "why": "Detect heart changes from hypertension",
-        "normal_range": "Normal"
-      },
-      {
-        "name": "Electrolytes Panel",
-        "frequency": "Annually or if on medications",
-        "why": "Monitor sodium, potassium balance",
-        "normal_range": "Within normal limits"
+      "family_history": [
+        {
+          "role": "mother",
+          "generation": 1,
+          "breast_ovarian_cancer": true
+        },
+        {
+          "role": "father",
+          "generation": 1,
+          "familial_hypercholesterolemia": true
+        },
+        {
+          "role": "sister",
+          "generation": 0,
+          "breast_ovarian_cancer": true
+        },
+        {
+          "role": "maternal_grandmother",
+          "generation": 2,
+          "breast_ovarian_cancer": true
+        },
+        {
+          "role": "maternal_aunt",
+          "generation": 2,
+          "breast_ovarian_cancer": true
+        },
+        {
+          "role": "maternal_aunt",
+          "generation": 2,
+          "breast_ovarian_cancer": true
+        },
+        {
+          "role": "paternal_grandfather",
+          "generation": 2,
+          "cad": true
+        },
+        {
+          "role": "daughter",
+          "generation": -1,
+          "thalassemia": true
+        }
+      ],
+      "lab_values": {
+        "ldl": 195,
+        "total_cholesterol": 310,
+        "hdl": 45
       }
-    ],
-    "familial_hypercholesterolemia": [
-      {
-        "name": "Lipid Profile (Fasting)",
-        "frequency": "Every 3-6 months initially, then as directed",
-        "why": "Monitor cholesterol levels closely",
-        "normal_range": "LDL <100 mg/dL (lower targets may apply)"
-      },
-      {
-        "name": "Apolipoprotein B (ApoB)",
-        "frequency": "Annually",
-        "why": "More accurate marker than LDL",
-        "normal_range": "<90 mg/dL"
-      },
-      {
-        "name": "Genetic Testing",
-        "frequency": "Once for diagnosis confirmation",
-        "why": "Identifies specific mutation (LDLR, APOB, PCSK9)",
-        "normal_range": "N/A"
-      },
-      {
-        "name": "Carotid Ultrasound",
-        "frequency": "Baseline, then every 3-5 years",
-        "why": "Check for plaque buildup in arteries",
-        "normal_range": "No significant plaque"
-      },
-      {
-        "name": "Coronary Calcium Score",
-        "frequency": "Consider after age 30-40",
-        "why": "Early detection of arterial calcification",
-        "normal_range": "0 is ideal"
-      }
-    ],
-    "breast_ovarian_cancer": [
-      {
-        "name": "BRCA1/BRCA2 Genetic Testing",
-        "frequency": "Once if strong family history",
-        "why": "Identifies high-risk genetic mutations",
-        "normal_range": "No mutation"
-      },
-      {
-        "name": "Clinical Breast Exam",
-        "frequency": "Every 6-12 months if high risk",
-        "why": "Physical examination by healthcare provider",
-        "normal_range": "No lumps or abnormalities"
-      },
-      {
-        "name": "Mammogram",
-        "frequency": "Annually starting age 40, earlier if high risk",
-        "why": "X-ray imaging to detect tumors",
-        "normal_range": "BIRADS 1-2"
-      },
-      {
-        "name": "Breast MRI",
-        "frequency": "Annually if BRCA+ or very high risk",
-        "why": "More sensitive than mammogram for high-risk",
-        "normal_range": "No suspicious lesions"
-      },
-      {
-        "name": "Transvaginal Ultrasound",
-        "frequency": "Every 6-12 months if BRCA+ for ovarian screening",
-        "why": "Visualize ovaries for abnormalities",
-        "normal_range": "Normal ovaries"
-      },
-      {
-        "name": "CA-125 Blood Test",
-        "frequency": "Every 6-12 months if high risk",
-        "why": "Tumor marker for ovarian cancer (not definitive)",
-        "normal_range": "<35 U/mL"
-      }
-    ],
-    "thalassemia": [
-      {
-        "name": "Complete Blood Count (CBC)",
-        "frequency": "Initially, then as recommended",
-        "why": "Check hemoglobin, MCV, MCH levels",
-        "normal_range": "Hemoglobin 12-16 g/dL (females), MCV 80-100 fL"
-      },
-      {
-        "name": "Hemoglobin Electrophoresis",
-        "frequency": "Once for diagnosis",
-        "why": "Identifies abnormal hemoglobin types",
-        "normal_range": "Normal HbA, no HbS or abnormal variants"
-      },
-      {
-        "name": "Genetic Testing",
-        "frequency": "For confirmation and family planning",
-        "why": "Identifies specific thalassemia mutations",
-        "normal_range": "No mutations"
-      },
-      {
-        "name": "Iron Studies",
-        "frequency": "Annually if carrier/patient",
-        "why": "Avoid iron overload",
-        "normal_range": "Ferritin 15-200 ng/mL"
-      },
-      {
-        "name": "Partner Screening",
-        "frequency": "Before family planning",
-        "why": "Assess risk for offspring",
-        "normal_range": "No carrier status"
-      }
-    ],
-    "sickle_cell": [
-      {
-        "name": "Hemoglobin Electrophoresis",
-        "frequency": "Once for diagnosis",
-        "why": "Detects sickle hemoglobin (HbS)",
-        "normal_range": "No HbS"
-      },
-      {
-        "name": "Complete Blood Count",
-        "frequency": "Regular monitoring if carrier/patient",
-        "why": "Monitor anemia severity",
-        "normal_range": "Hemoglobin >12 g/dL"
-      },
-      {
-        "name": "Genetic Counseling & Testing",
-        "frequency": "Before family planning",
-        "why": "Assess inheritance risk",
-        "normal_range": "N/A"
-      },
-      {
-        "name": "Reticulocyte Count",
-        "frequency": "If diagnosed",
-        "why": "Measures new red blood cell production",
-        "normal_range": "0.5-2.5%"
-      }
-    ],
-    "asthma": [
-      {
-        "name": "Spirometry (Lung Function Test)",
-        "frequency": "Initially for diagnosis, then annually",
-        "why": "Measures airflow and lung capacity",
-        "normal_range": "FEV1 >80% predicted"
-      },
-      {
-        "name": "Peak Flow Monitoring",
-        "frequency": "Daily if persistent asthma",
-        "why": "Track breathing at home",
-        "normal_range": "Personal best maintained"
-      },
-      {
-        "name": "Allergy Testing",
-        "frequency": "Once if triggers unclear",
-        "why": "Identify specific allergens",
-        "normal_range": "Depends on individual"
-      },
-      {
-        "name": "Chest X-ray",
-        "frequency": "If symptoms severe or infection suspected",
-        "why": "Rule out complications",
-        "normal_range": "Clear lungs"
-      }
-    ],
-    "hypothyroidism": [
-      {
-        "name": "TSH (Thyroid Stimulating Hormone)",
-        "frequency": "Every 6-12 months if at risk, more if on medication",
-        "why": "Primary screening test for thyroid function",
-        "normal_range": "0.5-4.5 mIU/L"
-      },
-      {
-        "name": "Free T4",
-        "frequency": "If TSH abnormal",
-        "why": "Measures actual thyroid hormone level",
-        "normal_range": "0.8-1.8 ng/dL"
-      },
-      {
-        "name": "Free T3",
-        "frequency": "Sometimes with T4",
-        "why": "Active thyroid hormone",
-        "normal_range": "80-200 ng/dL"
-      },
-      {
-        "name": "Thyroid Antibodies (TPO, TG)",
-        "frequency": "Once if autoimmune cause suspected",
-        "why": "Detect Hashimoto's thyroiditis",
-        "normal_range": "Negative or low"
-      }
-    ],
-    "pcos": [
-      {
-        "name": "Pelvic Ultrasound",
-        "frequency": "For diagnosis",
-        "why": "Visualize ovarian cysts",
-        "normal_range": "No polycystic appearance"
-      },
-      {
-        "name": "Testosterone (Total and Free)",
-        "frequency": "Initially and as needed",
-        "why": "Elevated in PCOS",
-        "normal_range": "<50 ng/dL total"
-      },
-      {
-        "name": "Fasting Glucose & Insulin",
-        "frequency": "Annually",
-        "why": "Screen for insulin resistance/diabetes",
-        "normal_range": "Glucose <100 mg/dL"
-      },
-      {
-        "name": "Lipid Profile",
-        "frequency": "Annually",
-        "why": "PCOS increases cardiovascular risk",
-        "normal_range": "Within normal limits"
-      },
-      {
-        "name": "LH/FSH Ratio",
-        "frequency": "For diagnosis",
-        "why": "Often elevated in PCOS",
-        "normal_range": "Ratio <2:1"
-      },
-      {
-        "name": "HbA1c",
-        "frequency": "Annually",
-        "why": "Monitor long-term glucose control",
-        "normal_range": "<5.7%"
-      }
+    }
+  },
+  "lifestyle_factor_mappings": {
+    "high_sugar": ["high_sugar_intake", "excessive_sweets", "sugary_drinks"],
+    "sedentary": ["no_exercise", "desk_job", "inactive", "less_than_30min_weekly"],
+    "obesity": ["bmi_over_30", "overweight"],
+    "stress": ["high_stress", "chronic_stress", "work_stress"],
+    "smoking": ["current_smoker", "smokes"],
+    "alcohol": ["heavy_drinking", "frequent_alcohol"],
+    "high_fat_diet": ["fried_foods", "fatty_diet", "fast_food_regular"],
+    "high_salt": ["salty_foods", "processed_foods_frequent"],
+    "air_pollution": ["pollution_exposure", "urban_pollution"],
+    "allergen_exposure": ["dust", "pollen", "pets"],
+    "iodine_deficiency": ["low_iodine_diet"]
+  },
+  "valid_roles": {
+    "generation_-1": ["son", "daughter", "child"],
+    "generation_0": ["brother", "sister", "sibling"],
+    "generation_1": ["mother", "father", "parent"],
+    "generation_2": [
+      "maternal_grandmother",
+      "maternal_grandfather",
+      "paternal_grandmother",
+      "paternal_grandfather",
+      "maternal_aunt",
+      "maternal_uncle",
+      "paternal_aunt",
+      "paternal_uncle"
     ]
   }
 }
