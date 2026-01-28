@@ -68,8 +68,8 @@ function RegistrationForm({ formData, updateFormData }) {
                 type="number"
                 {...register('age', {
                   required: 'Age is required',
-                  min: { value: 15, message: 'Age must be at least 15' },
-                  max: { value: 100, message: 'Age must be 100 or less' }
+                  min: { value: 10, message: 'Age must be at least 10' },
+                  max: { value: 150, message: 'Age must be 150 or less' }
                 })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 placeholder="Enter your age"
@@ -128,7 +128,7 @@ function RegistrationForm({ formData, updateFormData }) {
                 type="number"
                 {...register('height', {
                   required: 'Height is required',
-                  min: { value: 100, message: 'Height must be at least 100 cm' },
+                  min: { value: 70, message: 'Height must be at least 70 cm' },
                   max: { value: 250, message: 'Height must be 250 cm or less' }
                 })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
@@ -149,8 +149,8 @@ function RegistrationForm({ formData, updateFormData }) {
                 step="0.1"
                 {...register('weight', {
                   required: 'Weight is required',
-                  min: { value: 30, message: 'Weight must be at least 30 kg' },
-                  max: { value: 300, message: 'Weight must be 300 kg or less' }
+                  min: { value: 20, message: 'Weight must be at least 20 kg' },
+                  max: { value: 700, message: 'Weight must be 700 kg or less' }
                 })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 placeholder="Enter your weight in kg"
