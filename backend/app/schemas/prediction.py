@@ -1,35 +1,44 @@
-from enum import Enum
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from app.schemas.profile import PatientProfile
 from app.schemas.family import FamilyMember
 from app.schemas.lab_values import LabValues
 from app.schemas.lifestyle import Lifestyle
 
-class RiskLevel(str, Enum):
-    low = "low"
-    moderate = "moderate"
-    high = "high"
-
-class Recommendation(str, Enum):
-    none = "none"
-    consult_soon = "consult_soon"
-    consult_urgent = "consult_urgent"
-
-class DiseaseRisk(BaseModel):
-    disease: str
-    risk_score: float = Field(..., ge=0.0, le=1.0)
-    risk_level: RiskLevel
-    factors: List[str]
-    recommendation: Recommendation
-
-class RiskResponse(BaseModel):
-    patient_name: str
-    results: List[DiseaseRisk]
 
 class RiskRequest(BaseModel):
+    """Request payload for risk prediction"""
     patient: PatientProfile
     lifestyle: Lifestyle
     family: List[FamilyMember]
     lab_values: Optional[LabValues] = None
 
+
+class ConsultDetail(BaseModel):
+    """Detailed consultation guidance"""
+    level: str
+    timeframe: str
+    message: str
+    specialist: Dict[str, Any]
+    what_to_discuss: List[str]
+    preparation: List[str]
+
+
+class DiseaseRiskResult(BaseModel):
+    """Individual disease risk result - matches AI output exactly"""
+    disease_name: str
+    disease_id: str
+    probability: float = Field(..., ge=0.0, le=1.0)
+    risk_class: str  # "I", "II", "III", or "IV"
+    reasons: List[str]
+    prevention: List[str]
+    recommended_tests: List[str]
+    recommended_tests_detail: Optional[List[Dict[str, Any]]] = []
+    consult: str  # "none", "routine", "soon", "urgent"
+    consult_detail: ConsultDetail
+
+
+class RiskResponse(BaseModel):
+    """Response from prediction endpoint"""
+    success: bool = True
+    results: List[DiseaseRiskResult]

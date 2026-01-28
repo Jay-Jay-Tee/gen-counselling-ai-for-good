@@ -32,9 +32,9 @@ def predict_risks(user_data: Dict[str, Any]) -> List[Dict[str, Any]]:
     
     Args:
         user_data: Dictionary containing:
-            - basic_info: {age, gender, height, weight, bmi}
+            - patient: {age, gender, height, weight, race, known_issues}
             - lifestyle: {smoking, alcohol, exercise, diet, stress_level, sleep_hours}
-            - family_history: {generation_1: {}, generation_2: {}}
+            - family: [{role, generation, known_issues}, ...]
             - lab_values: {hba1c, fasting_glucose, ldl, hdl, etc.}
     
     Returns:
@@ -44,6 +44,16 @@ def predict_risks(user_data: Dict[str, Any]) -> List[Dict[str, Any]]:
     diseases = load_diseases_config()
     results = []
     
+    # Extract patient info for use in scoring
+    patient_info = user_data.get('patient', {})
+    
+    # Build basic_info for compatibility with existing modules
+    basic_info = {
+        'age': patient_info.get('age', 30),
+        'gender': patient_info.get('gender', 'unknown'),
+        'bmi': calculate_bmi(patient_info)
+    }
+    
     # Check lab data completeness for weighting
     lab_values = user_data.get('lab_values', {})
     has_labs = len(lab_values) > 0
@@ -52,16 +62,16 @@ def predict_risks(user_data: Dict[str, Any]) -> List[Dict[str, Any]]:
         disease_id = disease['id']
         disease_name = disease['name']
         
-        # Calculate component scores
+        # Calculate component scores - FIXED: use 'family' not 'family_history'
         family_score = calculate_family_score(
             disease, 
-            user_data.get('family_history', {})
+            user_data.get('family', [])
         )
         
         lifestyle_score = calculate_lifestyle_score(
             disease, 
             user_data.get('lifestyle', {}),
-            user_data.get('basic_info', {})
+            basic_info
         )
         
         lab_score = calculate_lab_score(
@@ -101,11 +111,11 @@ def predict_risks(user_data: Dict[str, Any]) -> List[Dict[str, Any]]:
             base_probability = min(1.0, base_probability + 0.12)
         
         # Gender-specific adjustment for PCOS
-        if disease_id == 'pcos' and user_data.get('basic_info', {}).get('gender') != 'female':
+        if disease_id == 'pcos' and basic_info.get('gender') not in ['F', 'female', 'Female']:
             base_probability = 0.0
         
         # Age adjustments for certain diseases
-        age = user_data.get('basic_info', {}).get('age', 30)
+        age = basic_info.get('age', 30)
         if disease_id in ['type2_diabetes', 'cad', 'hypertension'] and age > 45:
             base_probability = min(1.0, base_probability + 0.08)
         
@@ -115,10 +125,15 @@ def predict_risks(user_data: Dict[str, Any]) -> List[Dict[str, Any]]:
         # Determine risk class
         risk_class = get_risk_class(probability)
         
-        # Generate explanations
+        # Generate explanations - pass basic_info for compatibility
+        user_data_with_basic = {
+            **user_data,
+            'basic_info': basic_info
+        }
+        
         reasons = generate_reasons(
             disease,
-            user_data,
+            user_data_with_basic,
             family_score,
             lifestyle_score,
             lab_score
@@ -131,7 +146,7 @@ def predict_risks(user_data: Dict[str, Any]) -> List[Dict[str, Any]]:
         tests_simple, tests_detail = get_tests_for_disease(disease_id, risk_class)
         
         # Determine consult urgency using dedicated module
-        consult_info = get_consult_urgency(disease_id, risk_class, probability, user_data)
+        consult_info = get_consult_urgency(disease_id, risk_class, probability, user_data_with_basic)
         
         results.append({
             'disease_name': disease_name,
@@ -150,6 +165,21 @@ def predict_risks(user_data: Dict[str, Any]) -> List[Dict[str, Any]]:
     results.sort(key=lambda x: x['probability'], reverse=True)
     
     return results
+
+
+def calculate_bmi(patient_info: Dict) -> float:
+    """Calculate BMI from patient height and weight"""
+    try:
+        weight = patient_info.get('weight', 70)
+        height = patient_info.get('height', 170)
+        
+        if height > 0:
+            height_m = height / 100  # Convert cm to meters
+            bmi = weight / (height_m ** 2)
+            return round(bmi, 1)
+        return 22.0  # Default
+    except:
+        return 22.0
 
 
 def get_prevention_for_disease(disease_id: str, risk_class: str) -> List[str]:

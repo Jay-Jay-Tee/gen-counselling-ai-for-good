@@ -35,8 +35,8 @@ def generate_reasons(
     probability = (family_score * 0.40 + lifestyle_score * 0.35 + lab_score * 0.25)
     is_urgent = probability >= 0.75
     
-    # Family history reasons
-    family_reasons = get_family_reasons(disease_id, user_data.get('family_history', []))
+    # Family history reasons - FIXED: use 'family' key
+    family_reasons = get_family_reasons(disease_id, user_data.get('family', []))
     
     # Lifestyle reasons
     lifestyle_reasons = get_lifestyle_reasons(
@@ -85,11 +85,11 @@ def generate_reasons(
     return reasons[:5]  # Return max 5 reasons
 
 
-def get_family_reasons(disease_id: str, family_history: List[Dict]) -> List[str]:
-    """Extract family history reasons from array format"""
+def get_family_reasons(disease_id: str, family: List[Dict]) -> List[str]:
+    """Extract family history reasons from array format - FIXED"""
     reasons = []
     
-    if not family_history:
+    if not family:
         return reasons
     
     affected_by_generation = {
@@ -99,9 +99,10 @@ def get_family_reasons(disease_id: str, family_history: List[Dict]) -> List[str]
         2: []    # Extended family
     }
     
-    # Group affected members by generation
-    for member in family_history:
-        if member.get(disease_id, False):
+    # Group affected members by generation - FIXED: check known_issues array
+    for member in family:
+        known_issues = member.get('known_issues', [])
+        if disease_id in known_issues:  # ✅ CORRECT: check if disease_id in array
             role = member.get('role', 'unknown')
             generation = member.get('generation', 2)
             
