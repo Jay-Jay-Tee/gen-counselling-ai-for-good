@@ -1,8 +1,10 @@
 from enum import Enum
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Optional
 from app.schemas.profile import PatientProfile
 from app.schemas.family import FamilyMember
+from app.schemas.lab_values import LabValues
+from app.schemas.lifestyle import Lifestyle
 
 class RiskLevel(str, Enum):
     low = "low"
@@ -27,5 +29,7 @@ class RiskResponse(BaseModel):
 
 class RiskRequest(BaseModel):
     patient: PatientProfile
+    lifestyle: Lifestyle
     family: List[FamilyMember]
+    lab_values: Optional[LabValues] = None
 

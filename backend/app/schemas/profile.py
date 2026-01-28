@@ -1,14 +1,10 @@
 from pydantic import BaseModel, Field
-from typing import List
-
+from typing import List, Optional
 
 class PatientProfile(BaseModel):
-    age: int = Field(..., gt=0, lt=150)
-    gender: str
-    weight: float = Field(..., gt=0)
-    height: float = Field(..., gt=0)
-    race: str
-    vision: float = Field(..., gt=0)
-    sugar_level: float = Field(..., ge=0)
-    RBC: float = Field(..., gt=0)
-    known_issues: List[str]
+    age: int = Field(..., ge=15, le=100)
+    gender: str = Field(..., pattern="^(M|F|Other)$")
+    weight: float
+    height: float
+    race: Optional[str] = None
+    known_issues: Optional[List[str]] = []
