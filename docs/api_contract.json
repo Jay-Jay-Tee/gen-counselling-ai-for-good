@@ -2,11 +2,6 @@
   "api_version": "1.0",
   "last_updated": "2026-01-27",
   "endpoints": {
-
-
-
-
-
     "predict_risk": {
       "method": "POST",
       "path": "/predict-risk",
@@ -558,11 +553,6 @@
         ]
       }
     },
-
-
-
-
-
     "ocr": {
       "method": "POST",
       "path": "/ocr",
@@ -595,11 +585,6 @@
         }
       }
     },
-
-
-
-
-    
     "health": {
       "method": "GET",
       "path": "/health",
