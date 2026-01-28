@@ -2,15 +2,19 @@ from app.schemas.prediction import RiskResponse, DiseaseRisk, RiskLevel, Recomme
 
 def predict_risk(payload):
     # TEMP / dummy logic
+    # return RiskResponse(
+    #     patient_name="",
+    #     results=[
+    #         DiseaseRisk(
+    #             disease="diabetes",
+    #             risk_score=0.72,
+    #             risk_level=RiskLevel.high,
+    #             factors=["family history", "elevated sugar level"],
+    #             recommendation=Recommendation.consult_soon
+    #         )
+    #     ]
+    # )
     return RiskResponse(
-        patient_name="",
-        results=[
-            DiseaseRisk(
-                disease="diabetes",
-                risk_score=0.72,
-                risk_level=RiskLevel.high,
-                factors=["family history", "elevated sugar level"],
-                recommendation=Recommendation.consult_soon
-            )
-        ]
+        patient_name=payload.patient,
+        risk=predict_risks(payload)
     )
