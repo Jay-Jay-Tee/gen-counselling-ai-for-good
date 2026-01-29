@@ -7,31 +7,31 @@
 # ==========================================
 
 # EasyOCR (recommended, GPU support available)
-easyocr==1.7.1
+easyocr
 
 # Tesseract (lightweight, CPU only)
-pytesseract==0.3.10
+pytesseract
 # System dependency required: sudo apt-get install tesseract-ocr
 
 # PaddleOCR (alternative, very accurate but large)
-# paddleocr==2.7.3
+# paddleocr
 # Uncomment if needed, ~400MB download
 
 # ==========================================
 # IMAGE PROCESSING
 # ==========================================
-opencv-python==4.9.0.80
-pillow==10.2.0
-numpy==1.26.3
+opencv-python
+pillow
+numpy
 
 # ==========================================
 # PDF PROCESSING
 # ==========================================
-PyPDF2==3.0.1
-pdf2image==1.17.0
+PyPDF2
+pdf2image
 
 # Alternative PDF parser (more robust for tables)
-# pdfplumber==0.10.3
+# pdfplumber
 
 # System dependency for pdf2image:
 # Ubuntu: sudo apt-get install poppler-utils
@@ -41,8 +41,8 @@ pdf2image==1.17.0
 # ==========================================
 # DATA PROCESSING (Optional)
 # ==========================================
-# pandas==2.1.4
-# scipy==1.11.4
+# pandas
+# scipy
 
 # ==========================================
 # MACHINE LEARNING (Optional - Future Enhancement)
@@ -50,9 +50,9 @@ pdf2image==1.17.0
 # Current implementation uses rule-based scoring (no ML needed)
 # Uncomment if adding ML models:
 
-# scikit-learn==1.4.0
-# xgboost==2.0.3
-# lightgbm==4.3.0
+# scikit-learn
+# xgboost
+# lightgbm
 
 # ==========================================
 # LLM INTEGRATION (Optional)
@@ -60,21 +60,21 @@ pdf2image==1.17.0
 # For generating summaries using LLMs:
 
 # Anthropic Claude API:
-# anthropic==0.18.1
+# anthropic
 
 # OpenAI API:
-# openai==1.10.0
+# openai
 
 # ==========================================
 # UTILITIES
 # ==========================================
-requests==2.31.0
-loguru==0.7.2
+requests
+loguru
 
 # ==========================================
 # TESTING
 # ==========================================
-pytest==7.4.4
+pytest
 
 # ==========================================
 # NOTES

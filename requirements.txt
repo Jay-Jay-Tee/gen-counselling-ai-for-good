@@ -5,37 +5,37 @@
 # ==========================================
 # BACKEND DEPENDENCIES (FastAPI)
 # ==========================================
-fastapi==0.109.0
-uvicorn[standard]==0.27.0
-pydantic==2.5.3
-pydantic-settings==2.1.0
-python-multipart==0.0.6
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-multipart
 
 # For JWT auth (optional, if implementing user auth)
 # python-jose[cryptography]==3.3.0
 # passlib[bcrypt]==1.7.4
 
 # Environment variables
-python-dotenv==1.0.0
+python-dotenv
 
 # ==========================================
 # AI MODULE - OCR DEPENDENCIES
 # ==========================================
 
 # Primary OCR engines (choose one or use as fallback chain)
-easyocr==1.7.1
-pytesseract==0.3.10
-# paddleocr==2.7.3  # Alternative OCR (optional, large download)
+easyocr
+pytesseract
+# paddleocr  # Alternative OCR (optional, large download)
 
 # Image processing
-opencv-python==4.9.0.80
-pillow==10.2.0
-numpy==1.26.3
+opencv-python
+pillow
+numpy
 
 # PDF processing
-PyPDF2==3.0.1
-pdf2image==1.17.0
-# pdfplumber==0.10.3  # Alternative PDF parser (optional)
+PyPDF2
+pdf2image
+# pdfplumber  # Alternative PDF parser (optional)
 
 # For pdf2image - requires system package: poppler-utils
 # Ubuntu: sudo apt-get install poppler-utils
@@ -50,31 +50,31 @@ pdf2image==1.17.0
 # Uses Python standard library: json, pathlib, typing
 
 # Optional: For future ML enhancements
-# pandas==2.1.4
-# scikit-learn==1.4.0
-# xgboost==2.0.3
+# pandas
+# scikit-learn
+# xgboost
 
 # ==========================================
 # SHARED UTILITIES
 # ==========================================
-requests==2.31.0
+requests
 
 # Logging
-loguru==0.7.2
+loguru
 
 # ==========================================
 # TESTING (Optional but recommended)
 # ==========================================
-pytest==7.4.4
-pytest-asyncio==0.23.3
-httpx==0.26.0  # For testing FastAPI endpoints
+pytest
+pytest-asyncio
+httpx # For testing FastAPI endpoints
 
 # ==========================================
 # DEVELOPMENT TOOLS (Optional)
 # ==========================================
-black==24.1.1       # Code formatter
-flake8==7.0.0       # Linter
-mypy==1.8.0         # Type checker
+black       # Code formatter
+flake8      # Linter
+mypy       # Type checker
 
 # ==========================================
 # NOTES
