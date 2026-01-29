@@ -1,246 +1,310 @@
-# Gen Counselling AI for Good 🧬💙  
-*A web-based AI preventive health platform for inherited disease risk awareness.*
+# 🧬 Gen Counselling AI for Good
+
+**AI-Powered Genetic Risk Assessment & Health Coaching Platform**
+
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
+[![Made for](https://img.shields.io/badge/made%20for-AI%20for%20Good-red.svg)]()
+
+> **Empowering individuals to understand their genetic health risks and take preventive action before diseases develop.**
+
+[Demo](#-live-demo) · [Features](#-key-features) · [Quick Start](#-quick-start) · [Documentation](#-documentation)
 
 ---
 
-## 📌 Project Gist (Brief)
+## 🎯 What is This?
 
-We are building a web-based AI preventive health platform that predicts an individual's genetically inherited disease risks using:
+Gen Counselling AI is a **web-based preventive health platform** that predicts inherited disease risks using family history, lifestyle data, and lab values. It provides:
 
-- **Family history (up to 2 generations)**
-- **User health records** (manual input / AI-OCR)
-- **Open-source datasets**
+- 🎲 **Risk predictions** for 10 major inherited diseases
+- 📊 **Risk classification** (Class I-IV) with clear explanations
+- 💡 **Personalized prevention plans** tailored to your profile
+- 🩺 **Screening recommendations** for early detection
+- ⚕️ **Consultation guidance** based on risk severity
 
-The system displays **disease-wise risk** as ranked probabilities or risk classes (**I–IV**), explains each condition in simple language, and functions as a **dynamic health coach** by suggesting lifestyle interventions, recommended screening tests, and urgent doctor consultation when risk is high.
-
-The goal is to reduce late diagnosis and improve early awareness among adolescents and adults.
-
----
-
-## 1) 🧩 Problem Statement
-
-Many individuals unknowingly carry a genetic predisposition to chronic and inherited diseases such as:
-
-- Type-2 diabetes  
-- Coronary artery disease  
-- Hereditary breast and ovarian cancer (BRCA-related)  
-- Thalassemia  
-- Sickle cell disease  
-- Familial hypercholesterolemia  
-
-These risks remain invisible until symptoms appear, leading to delayed diagnosis and worse outcomes. Adolescents and young adults especially rarely undergo preventive screening or risk assessment, missing early intervention opportunities.
-
-Existing healthcare systems largely react after disease onset rather than predicting and preventing it, increasing long-term health burden, healthcare costs, and avoidable morbidity.
+**No genetic testing required.** Just answer questions about your family, lifestyle, and health.
 
 ---
 
-## 2) 🌍 Context and Persistence of the Problem
+## 🚨 The Problem We're Solving
 
-This issue is widespread across both urban and semi-urban populations, especially in countries like India where preventive healthcare adoption is low.
+### Silent Genetic Risks
 
-It impacts individuals with family histories of chronic or inherited disease, many of whom remain unaware of their genetic risk. Despite medical advances, genetic testing and counseling still remain:
+Millions unknowingly carry genetic predispositions to diseases like:
+- Type-2 Diabetes
+- Heart Disease (CAD)
+- BRCA-related Cancers
+- Thalassemia & Sickle Cell
+- Familial Hypercholesterolemia
 
-- expensive
-- inaccessible
-- poorly integrated into routine care
+**The Issue:**
+- 🔴 Risks stay hidden until symptoms appear
+- 🔴 Young adults rarely get preventive screening
+- 🔴 Genetic testing is expensive & inaccessible
+- 🔴 Healthcare reacts *after* disease onset
 
-Healthcare systems largely focus on treatment rather than prediction. Asymptomatic individuals rarely seek screening, allowing inherited risks to go unnoticed and increasing preventable complications and long-term burden.
-
----
-
-## 3) 🎯 Target Users / Beneficiaries or Community
-
-**Primary users:**
-- Adolescents and adults (**15–55 years**) who are asymptomatic but may carry inherited risk
-- Students, working professionals, and middle-aged individuals in urban and semi-urban regions with limited access to preventive healthcare
-
-**Secondary beneficiaries:**
-- Families with known inherited medical histories who seek early screening and awareness
-
-This solution is especially relevant for individuals who cannot afford routine genetic testing but have access to smartphones and basic medical records.
+**Our Solution:** Early, accessible, explainable risk awareness.
 
 ---
 
-## 4) 😣 User Needs and Pain Points
+## ✨ Key Features
 
-Users often:
-- lack awareness of inherited disease risks
-- don't understand how family history affects personal health outcomes
-- face high costs of genetic testing
-- lack structured preventive guidance
-- feel confused about when/what screening tests to take
-- don't know what symptoms require urgency
+### 🎯 Intelligent Risk Assessment
+- **10 disease predictions** in one assessment
+- **Evidence-based scoring** using medical guidelines
+- **Explainable results** - know exactly why your risk is high
+- **No black box** - transparent rule-based system
 
-Healthcare support is often reactive and fragmented. There is a large gap between:
-> knowing a disease exists in the family  
-and  
-> knowing how lifestyle and preventive actions can reduce risk
+### 👨‍⚕️ Personalized Health Coaching
+- **Custom prevention plans** based on your lifestyle
+- **Recommended tests** with frequency and cost estimates
+- **Urgency levels** (routine/soon/urgent consultation)
+- **Action timelines** - what to do this week, month, year
 
-This leads to anxiety, neglect, and delayed diagnosis of manageable conditions.
+### 📸 Smart Lab Report Processing *(Coming Soon)*
+- **AI-powered OCR** to read medical reports
+- **Automatic extraction** of lab values
+- **Multi-format support** (images, PDFs)
 
----
-
-## 5) 🌱 Long-Term Impact
-
-In the long run, this solution can shift healthcare from **reactive treatment** to **preventive decision-making**.
-
-Early awareness of genetic risk enables:
-- timely screening
-- lifestyle modification
-- faster diagnosis and intervention
-
-This reduces disease severity and healthcare costs, while empowering youth to take ownership of health before symptoms appear.
-
-At scale, the system can reduce the burden of chronic and inherited diseases and promote a stronger preventive health culture.
+### 🎨 User-Friendly Interface
+- **Multi-step assessment** (profile, lifestyle, family history)
+- **Visual risk dashboard** with clear risk classes
+- **Detailed disease pages** with simple explanations
+- **Mobile-responsive** design
 
 ---
 
-## 6) 🔍 What Informed Our Understanding of the Problem
+## 🏗️ How It Works
 
-Our understanding was shaped by:
-- real-world observation of delayed diagnosis in hereditary conditions like Type-2 diabetes and cardiovascular disease
-- a case where a peer developed diabetes without prior risk awareness despite strong family history
-- discussions with affected families
-- secondary research highlighting gaps in preventive healthcare and risk stratification
-- academic exposure to health data analysis showing family history and lifestyle indicators are underused in early prediction
+### Our Approach: Rule-Based Expert System
 
-We observed that asymptomatic individuals—especially youth—rarely seek screening, missing early preventive opportunities.
-
----
-
-## 7) ♻️ Relevant Sustainable Development Goals (SDG)
-
-✅ **SDG 3: Good Health and Well-Being**
-
----
-
-## 8) 🧠 Proposed Direction of the Solution
-
-We are exploring a web-based preventive health platform that collects:
-
-- user health records
-- family medical history (up to two generations)
-
-via manual input or AI-powered OCR.
-
-Using open-source health datasets, AI models estimate risk for multiple inherited diseases and display them as:
-
-- ranked probabilities  
-or  
-- categorized risk classes (**I–IV**)
-
-For each disease, the system generates:
-- simple disease summaries
-- personalized prevention advice
-- screening / confirmatory test recommendations
-- alerts for high-risk users encouraging timely doctor consultation
-
-The platform functions as a dynamic health coach enabling continuous risk awareness and proactive prevention rather than one-time diagnosis.
-
----
-
-## 9) 🤖 Role of AI in Our Approach
-
-AI enables scalable and personalized genetic risk awareness by turning fragmented health records, family history, and lifestyle data into actionable risk insights.
-
-Key AI roles include:
-- **AI OCR** to digitize unstructured medical documents
-- **pattern-learning ML models** to infer predisposition from population datasets
-- **risk stratification** converting probabilities into risk classes (I–IV)
-- **adaptive recommendation engine** that updates prevention advice based on user inputs
-
-This reduces dependence on expensive one-time genetic testing while supporting early decision-making through prevention-first guidance.
-
----
-
-## 🏗️ Technical Architecture
-
-### Tech Stack
-
-**Frontend:**
-- React.js with Tailwind CSS
-- Responsive web design for mobile/desktop
-
-**Backend:**
-- FastAPI (Python)
-- RESTful API endpoints
-- CORS enabled for frontend integration
-
-**AI/ML:**
-- AI-OCR: EasyOCR/PaddleOCR/Tesseract for medical report digitization
-- Risk Engine: Rule-based scoring + pattern analysis
-- Pure Python (no external ML dependencies for MVP)
-
-**Data:**
-- JSON-based configuration
-- Disease definitions, thresholds, and guidelines
-- Demo cases for testing
-
----
-
-## 📂 Project Structure
+We use a **transparent, explainable AI model** based on clinical guidelines:
 
 ```
-project_root/
-├── frontend/              # React application (3 members)
+Risk Score = (Family History × 40%) + (Lifestyle × 35%) + (Lab Values × 25%)
+
+Then classify:
+• Class I (Low):       0-29% risk
+• Class II (Moderate): 30-54% risk
+• Class III (High):    55-74% risk
+• Class IV (Very High): 75-99% risk
+```
+
+**Why rule-based?**
+- ✅ **Explainable** - can explain every prediction
+- ✅ **Trustworthy** - based on medical research
+- ✅ **No training data needed** - privacy-friendly
+- ✅ **Transparent** - not a black box
+- ✅ **Regulatory-friendly** - auditable logic
+
+### Disease Coverage
+
+| Disease | Family Weight | Key Risk Factors |
+|---------|---------------|------------------|
+| Type-2 Diabetes | 35% | High sugar, sedentary, obesity, family history |
+| Coronary Artery Disease | 30% | Smoking, high-fat diet, high cholesterol |
+| Hypertension | 28% | High salt, alcohol, stress, obesity |
+| Familial Hypercholesterolemia | 50% | Strong genetic component, high LDL |
+| BRCA (Breast/Ovarian Cancer) | 45% | Family history, hormones, lifestyle |
+| Thalassemia | 50% | Pure genetic (carrier risk) |
+| Sickle Cell Disease | 50% | Pure genetic (carrier risk) |
+| Asthma | 25% | Allergens, pollution, family history |
+| Hypothyroidism | 30% | Family history, iodine deficiency |
+| PCOS | 35% | Obesity, sedentary lifestyle |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+**Backend:**
+- Python 3.8+
+- pip
+
+**Frontend:**
+- Node.js 16+
+- npm or yarn
+
+### Installation (5 minutes)
+
+#### 1. Clone Repository
+```bash
+git clone https://github.com/Jay-Jay-Tee/gen-counselling-ai-for-good.git
+cd gen-counselling-ai-for-good
+```
+
+#### 2. Setup Backend
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Backend runs on: `http://localhost:8000`  
+API Docs: `http://localhost:8000/docs`
+
+#### 3. Setup Frontend (New Terminal)
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend runs on: `http://localhost:5173`
+
+#### 4. Test It Works
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# Expected: {"status":"healthy","service":"Genetic Risk Coach API"}
+```
+
+### Using the App
+
+1. **Open browser:** `http://localhost:5173`
+2. **Fill assessment:**
+   - Personal info (age, gender, height, weight)
+   - Lifestyle (diet, exercise, smoking, stress)
+   - Family history (parents, siblings with diseases)
+   - Lab values (HbA1c, cholesterol, etc.)
+3. **Get results:** See risk predictions for 10 diseases
+4. **Explore details:** Click any disease for prevention plans
+
+---
+
+## 📁 Project Structure
+
+```
+gen-counselling-ai-for-good/
+│
+├── frontend/                   # React + Vite + Tailwind
 │   ├── src/
-│   │   ├── components/   # Forms, Dashboard, Disease Detail pages
-│   │   └── ...
-│   └── package.json
+│   │   ├── api/               # API integration layer
+│   │   │   ├── client.js      # Axios configuration
+│   │   │   ├── predict.js     # Risk prediction endpoint
+│   │   │   ├── ocr.js         # OCR endpoint
+│   │   │   └── diseases.js    # Disease info endpoint
+│   │   ├── pages/             # Main screens
+│   │   │   ├── LandingPage.jsx
+│   │   │   ├── RegistrationForm.jsx
+│   │   │   ├── LifestyleForm.jsx
+│   │   │   ├── FamilyHistoryForm.jsx
+│   │   │   ├── UploadReport.jsx
+│   │   │   ├── ResultsDashboard.jsx
+│   │   │   └── DiseaseDetail.jsx
+│   │   ├── App.jsx            # Routing
+│   │   └── main.jsx           # Entry point
+│   ├── package.json
+│   └── vite.config.js
 │
-├── backend/              # FastAPI application (3 members)
-│   ├── main.py          # API routes
-│   ├── models/          # Data models
-│   └── ...
+├── backend/                    # FastAPI backend
+│   ├── app/
+│   │   ├── main.py            # FastAPI app & CORS
+│   │   ├── config.py          # Environment config
+│   │   ├── routers/           # API endpoints
+│   │   │   ├── predict.py     # /predict-risk
+│   │   │   ├── ocr.py         # /ocr
+│   │   │   └── diseases.py    # /disease-info
+│   │   ├── schemas/           # Pydantic models
+│   │   │   ├── prediction.py
+│   │   │   ├── profile.py
+│   │   │   ├── lifestyle.py
+│   │   │   ├── family.py
+│   │   │   └── lab_values.py
+│   │   └── services/          # Business logic
+│   │       ├── prediction_service.py
+│   │       ├── ocr_service.py
+│   │       └── disease_service.py
+│   └── requirements.txt
 │
-├── ai/                   # AI Module (2 members)
-│   ├── data/            # Configuration & test data
+├── ai/                         # AI Module (Rule-based Engine)
+│   ├── risk/                  # Risk prediction
+│   │   ├── risk_model.py      # Main prediction function
+│   │   ├── scoring_rules.py   # Scoring logic
+│   │   ├── risk_classes.py    # Classification (I-IV)
+│   │   └── explainability.py  # Reason generation
+│   ├── coaching/              # Health coaching
+│   │   ├── prevention_engine.py
+│   │   ├── test_recommender.py
+│   │   └── consult_logic.py
+│   ├── ocr/                   # OCR pipeline (in progress)
+│   │   └── ocr_pipeline.py
+│   ├── data/                  # Configuration
 │   │   ├── diseases_config.json
 │   │   ├── guidelines.json
 │   │   ├── tests_map.json
 │   │   └── sample_inputs.json
-│   │
-│   ├── ocr/             # AI-1: OCR & Lab Extraction
-│   │   ├── ocr_pipeline.py
-│   │   ├── report_parser.py
-│   │   └── normalize_units.py
-│   │
-│   ├── risk/            # AI-2: Risk Prediction
-│   │   ├── risk_model.py
-│   │   ├── scoring_rules.py
-│   │   ├── risk_classes.py
-│   │   └── explainability.py
-│   │
-│   └── coaching/        # AI-2: Health Coaching
-│       ├── prevention_engine.py
-│       ├── test_recommender.py
-│       └── consult_logic.py
+│   └── requirements.txt
 │
-└── requirements.txt     # Python dependencies
+├── docs/                       # Documentation
+│   └── api_contract.json
+│
+└── requirements.txt           # Root dependencies
 ```
 
 ---
 
-## 🤖 AI Module (AI-2): Risk Prediction & Health Coaching
+## 🔬 Technology Stack
 
-### Overview
+### Frontend
+- **React 18** - UI framework
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **React Router** - Navigation
+- **Axios** - HTTP client
+- **Recharts** - Data visualization
+- **Lucide React** - Icons
 
-The AI-2 module is responsible for:
-1. **Risk Prediction**: Analyzing family history, lifestyle, and lab data to predict disease risk
-2. **Risk Classification**: Converting probabilities to actionable Risk Classes (I–IV)
-3. **Explainability**: Generating human-readable reasons for each prediction
-4. **Health Coaching**: Providing personalized prevention plans, test recommendations, and consultation guidance
+### Backend
+- **FastAPI** - Modern Python web framework
+- **Pydantic** - Data validation
+- **Uvicorn** - ASGI server
+- **Python 3.8+** - Language
 
-### Core Components
+### AI Module
+- **Pure Python** - No ML frameworks needed
+- **Rule-based system** - Transparent logic
+- **EasyOCR** - Optical character recognition
+- **OpenCV** - Image processing
+- **NumPy** - Numerical operations
 
-#### 1. Risk Prediction Engine (`ai/risk/`)
+---
 
-**Main Function:** `predict_risks(user_data) -> List[Dict]`
+## 📖 API Documentation
 
-**Input:**
+### Endpoints
+
+#### 1. Health Check
+```bash
+GET /health
+```
+**Response:**
 ```json
 {
-  "basic_info": {"age": 32, "gender": "female", "bmi": 29.7},
+  "status": "healthy",
+  "service": "Genetic Risk Coach API",
+  "version": "1.0.0"
+}
+```
+
+#### 2. Predict Risk
+```bash
+POST /api/predict-risk/
+```
+
+**Request:**
+```json
+{
+  "patient": {
+    "age": 32,
+    "gender": "female",
+    "height": 165,
+    "weight": 75,
+    "race": "asian",
+    "known_issues": []
+  },
   "lifestyle": {
     "smoking": false,
     "alcohol": "occasional",
@@ -255,137 +319,27 @@ The AI-2 module is responsible for:
       "generation": 1,
       "age": 58,
       "gender": "female",
-      "known_issues": ["type2_diabetes", "hypertension"]
-    },
-    {
-      "role": "sister",
-      "generation": 0,
-      "age": 28,
-      "gender": "female",
-      "known_issues": ["type2_diabetes"]
-    },
-    {
-      "role": "maternal_grandmother",
-      "generation": 2,
-      "age": 82,
-      "gender": "female",
       "known_issues": ["type2_diabetes"]
     }
   ],
-  "lab_values": {"hba1c": 6.2, "fasting_glucose": 115, "ldl": 145}
+  "lab_values": {
+    "hba1c": 6.2,
+    "fasting_glucose": 115,
+    "ldl": 145,
+    "hdl": 42
+  }
 }
 ```
 
-**Output:** Ranked list of 10 diseases with:
-- `disease_name`: Human-readable name
-- `disease_id`: System identifier
-- `probability`: 0.0 - 0.99 risk score
-- `risk_class`: I (Low), II (Moderate), III (High), IV (Very High)
-- `reasons`: 3-5 human-readable explanations
-- `prevention`: Personalized prevention tips
-- `recommended_tests`: Screening tests to take
-- `consult`: Consultation urgency (none/routine/soon/urgent)
-
-**Scoring Algorithm:**
-- **Family Score (40%)**: Weighted by generation proximity
-  - Generation -1 (Children): 0.25 per person
-  - Generation 0 (Siblings): 0.25 per person
-  - Generation 1 (Parents): 0.30 per person
-  - Generation 2 (Extended): 0.10 per person
-- **Lifestyle Score (35%)**: Matches user habits against disease risk factors
-- **Lab Score (25%)**: Compares biomarkers against clinical thresholds
-
-*Dynamic weighting:* If labs unavailable, redistributes weight to family (50%) and lifestyle (40%)
-
-**Risk Class Thresholds:**
-- **Class I (Low)**: 0.00 - 0.30
-- **Class II (Moderate)**: 0.30 - 0.55
-- **Class III (High)**: 0.55 - 0.75
-- **Class IV (Very High)**: 0.75 - 0.99
-
-#### 2. Explainability Engine (`ai/risk/explainability.py`)
-
-Generates non-diagnostic, risk-indicating language:
-- ✅ "HbA1c elevated at 6.2%, suggesting higher diabetes risk"
-- ❌ "You have diabetes" (diagnostic - avoided)
-
-**Priority Logic:**
-- If `probability >= 0.75` (urgent): Show critical lab reasons first
-- Otherwise: Family → Lifestyle → Lab reasons
-
-#### 3. Health Coaching (`ai/coaching/`)
-
-**Prevention Engine:**
-- Personalizes diet, exercise, and lifestyle recommendations
-- Deduplicates tips from disease-specific and risk-class guidelines
-- Adapts to user's current habits (e.g., "Start with 10-min walks" for sedentary users)
-
-**Test Recommender:**
-- Prioritizes tests based on risk class, age, gender, and family history
-- Adjusts frequency: High risk = more frequent screening
-- Provides test preparation tips and cost estimates (₹ for India)
-
-**Consultation Logic:**
-- **Red Flag Detection**: Escalates urgency for critical lab values
-  - Example: LDL ≥ 190 mg/dL → Urgent
-  - Example: HbA1c ≥ 7.0% → Urgent
-- **Specialist Recommendations**: Suggests appropriate doctors (cardiologist, endocrinologist, genetic counselor)
-- **Discussion Points**: Lists what to discuss with doctor
-- **Preparation Tips**: How to prepare for consultation
-
-### Supported Diseases (10)
-
-1. **Type-2 Diabetes** - Family weight: 0.35
-2. **Coronary Artery Disease (CAD)** - Family weight: 0.30
-3. **Hypertension** - Family weight: 0.28
-4. **Familial Hypercholesterolemia** - Family weight: 0.50 (highly heritable)
-5. **Breast/Ovarian Cancer Risk (BRCA)** - Family weight: 0.45
-6. **Thalassemia Carrier Risk** - Family weight: 0.50
-7. **Sickle Cell Disease Risk** - Family weight: 0.50
-8. **Asthma Predisposition** - Family weight: 0.25
-9. **Hypothyroidism Predisposition** - Family weight: 0.30
-10. **PCOS Predisposition** - Family weight: 0.35
-
-### Key Features
-
-**Lab Key Normalization:**
-Handles OCR variations:
-- "HbA1c" / "Hemoglobin A1c" / "hba1c" → `hba1c`
-- "LDL Cholesterol" / "ldl" → `ldl`
-
-**Data Completeness Handling:**
-- Missing labs → Adjusts weighting automatically
-- No family history → Uses baseline risk + lifestyle/lab data
-- Incomplete lifestyle → Uses reasonable defaults
-
-**Error Handling:**
-- All modules include try-catch with fallbacks
-- Missing JSON files → Loads default values
-- Malformed input → Returns baseline risk estimates
-
-### Integration Example
-
-**FastAPI Endpoint:**
-```python
-from ai.risk.risk_model import predict_risks
-
-@app.post("/predict-risk")
-async def predict_risk_endpoint(user_data: dict):
-    try:
-        results = predict_risks(user_data)
-        return {"results": results}
-    except Exception as e:
-        return {"error": str(e)}, 500
-```
-
-**Response Format:**
+**Response:**
 ```json
 {
+  "success": true,
   "results": [
     {
       "disease_name": "Type-2 Diabetes",
       "disease_id": "type2_diabetes",
-      "probability": 0.68,
+      "probability": 0.71,
       "risk_class": "III",
       "reasons": [
         "Mother has this condition",
@@ -408,177 +362,230 @@ async def predict_risk_endpoint(user_data: dict):
       "consult_detail": {
         "level": "soon",
         "timeframe": "Schedule within 4-6 weeks",
-        "message": "Consult your doctor soon to assess risk and develop prevention plan",
         "specialist": {
-          "recommended": "Endocrinologist or Diabetologist",
-          "also_consider": "Primary Care Physician"
-        },
-        "what_to_discuss": [
-          "Blood sugar levels and HbA1c results",
-          "Diet plan and carbohydrate management",
-          "Exercise recommendations"
-        ]
+          "recommended": "Endocrinologist or Diabetologist"
+        }
       }
     }
+    // ... 9 more diseases
   ]
 }
 ```
 
-### Testing
-
-**Demo Cases Available:**
-- `case_a_low_risk`: Healthy young adult, no family history
-- `case_b_high_diabetes_risk`: Mother diabetic, elevated HbA1c (6.2%)
-- `case_c_mixed_risk`: Smoking, CAD family history, high cholesterol
-- `case_d_genetic_risk`: Strong BRCA and FH family history
-
-**Test Command:**
-```python
-import json
-from ai.risk.risk_model import predict_risks
-
-# Load demo case
-with open('ai/data/sample_inputs.json', 'r') as f:
-    demos = json.load(f)['demo_cases']
-
-# Run prediction
-result = predict_risks(demos['case_b_high_diabetes_risk'])
-
-# Output top risk
-print(f"Top Risk: {result[0]['disease_name']}")
-print(f"Probability: {result[0]['probability']}")
-print(f"Risk Class: {result[0]['risk_class']}")
-```
-
-### Performance
-
-- **No external ML dependencies** (uses rule-based scoring)
-- **Processing time**: <50ms per prediction (all 10 diseases)
-- **Memory footprint**: ~5MB (JSON configs cached)
-- **Scalability**: Handles 1000+ requests/minute on standard server
-
-### Data Privacy & Ethics
-
-- **No data storage**: Module processes data in-memory only
-- **No PHI retention**: User data not logged or persisted
-- **Transparent reasoning**: All risk scores explainable
-- **Non-diagnostic language**: Always recommends professional consultation for high risk
-- **Family sensitivity**: Handles genetic information responsibly
-
----
-
-## ✅ SDG Impact Summary
-
-This system supports:
-- early risk awareness
-- preventive screening
-- accessible health literacy
-- reduced late-stage disease complications  
-→ directly contributing to **SDG 3: Good Health & Well-Being**
-
----
-
-## 📌 Important Notes
-
-⚠️ This platform is intended as a **preventive decision-support tool**, not a replacement for licensed medical diagnosis. High-risk outputs always recommend professional medical consultation.
-
-⚠️ **Data Accuracy**: The system uses family history patterns and clinical thresholds from established medical guidelines, but individual genetic testing and doctor consultation remain the gold standard for diagnosis.
-
-⚠️ **Privacy**: All risk calculations happen on-demand. The AI module does not store or retain any personal health information.
-
----
-
-## 🚀 Getting Started (AI-2 Module)
-
-### Prerequisites
-- Python 3.8+
-- No external dependencies (pure Python stdlib)
-
-### Setup
+#### 3. OCR Upload *(In Progress)*
 ```bash
-# Clone repository
-git clone <repo-url>
-cd project_root
+POST /api/ocr/
+```
+Upload medical report image/PDF for automatic lab value extraction.
 
-# Verify AI module structure
-tree ai/
+#### 4. Disease Info
+```bash
+GET /api/disease-info/{disease_id}
+```
+Get detailed information about a specific disease.
 
-# Test import
-python3 -c "from ai.risk.risk_model import predict_risks; print('✅ Module ready')"
+**Interactive API Docs:** `http://localhost:8000/docs`
+
+---
+
+## 🧪 Testing
+
+### Run Backend Tests
+```bash
+cd backend
+pytest
 ```
 
-### Quick Test
-```python
-from ai.risk.risk_model import predict_risks
+### Run AI Module Tests
+```bash
+cd ai
+python3 -c "
+from risk.risk_model import predict_risks
+import json
 
-# Sample input
-user_data = {
-    "basic_info": {"age": 32, "gender": "female", "bmi": 29.7},
-    "lifestyle": {
-        "smoking": False,
-        "alcohol": "occasional",
-        "exercise": "sedentary",
-        "diet": "high_sugar",
-        "sleep_hours": 6,
-        "stress_level": "high"
-    },
-    "family": [
-        {
-            "role": "mother",
-            "generation": 1,
-            "known_issues": ["type2_diabetes"]
-        }
-    ],
-    "lab_values": {"hba1c": 6.2}
-}
+with open('data/sample_inputs.json', 'r') as f:
+    data = json.load(f)
 
-# Get predictions
-results = predict_risks(user_data)
-print(results[0])  # Top risk disease
+result = predict_risks(data['demo_cases']['case_b_high_diabetes_risk'])
+print(f'Top Risk: {result[0][\"disease_name\"]} - {result[0][\"probability\"]}')
+"
+```
+
+### Test API Endpoint
+```bash
+curl -X POST http://localhost:8000/api/predict-risk/ \
+  -H "Content-Type: application/json" \
+  -d @ai/data/sample_inputs.json
 ```
 
 ---
 
-## 👥 Team Structure
+## 🎯 Demo Scenarios
 
-- **Frontend (3)**: React components, UI/UX, forms, dashboard
-- **Backend (3)**: FastAPI, database, API integration
-- **AI-OCR (1)**: Medical report digitization and lab extraction
-- **AI-Risk (1)**: Risk prediction, coaching, and recommendations
-- **API Lead (1)**: Integration coordination, endpoint contracts
-- **Presentation (1)**: PPT, demo video, pitch preparation
+### Scenario 1: High Diabetes Risk (Sarah, 32)
+- **Profile:** Female, 32, BMI 30.1 (obese)
+- **Lifestyle:** Sedentary, high sugar diet, poor sleep
+- **Family:** Mother and sister have diabetes
+- **Labs:** HbA1c 6.2%, glucose 115 mg/dL
+- **Result:** **Class III (High Risk)** - 71% probability
+
+### Scenario 2: Low Risk (John, 25)
+- **Profile:** Male, 25, BMI 22 (normal)
+- **Lifestyle:** Active, balanced diet, no smoking
+- **Family:** No known diseases
+- **Labs:** All normal
+- **Result:** **Class I (Low Risk)** for all diseases
+
+### Scenario 3: BRCA High Risk (Emma, 38)
+- **Profile:** Female, 38
+- **Family:** Mother had breast cancer at 42, grandmother ovarian cancer
+- **Result:** **Class IV (Very High)** - urgent genetic counseling recommended
 
 ---
 
-## 📅 Development Timeline (Jan 26-31, 2026)
+## 🔐 Privacy & Ethics
 
-- **Day 1 (26th)**: Architecture freeze, repo setup, API contracts
-- **Day 2 (27th)**: Core build - forms, APIs, risk engine v1
-- **Day 3 (28th)**: OCR integration, dashboard with ranked results
-- **Day 4 (29th)**: Disease detail pages, prevention plans, coaching features
-- **Day 5 (30th)**: Polish, deployment, PPT 80% ready
-- **Day 6 (31st)**: Final demo rehearsal, submission package
+### Data Handling
+- ✅ **No data storage** - All processing in-memory
+- ✅ **No user accounts** required (MVP)
+- ✅ **No PHI retention** - Data never logged
+- ✅ **Client-side option** - Can run locally
+
+### Medical Disclaimer
+⚠️ **This platform is for educational and preventive awareness only.**
+- Not a diagnostic tool
+- Not a replacement for professional medical advice
+- Always consult healthcare providers for medical decisions
+- High-risk results require professional evaluation
+
+### Ethical Considerations
+- ✅ **Transparent** - Explainable predictions
+- ✅ **Non-diagnostic** language used
+- ✅ **Empowering** - Focus on prevention
+- ✅ **Accessible** - Free to use
+- ✅ **Privacy-first** - No genetic data collected
 
 ---
 
-## 📄 License
+## 🎓 Scientific Basis
 
-[Add your license here]
+### Our Risk Model Uses:
+
+**Family History Weighting:**
+- Based on Mendelian inheritance patterns
+- Generation proximity (parents > grandparents)
+- Disease-specific heritability (BRCA: 50%, CAD: 30%)
+
+**Lifestyle Factors:**
+- Evidence from epidemiological studies
+- Framingham Heart Study guidelines
+- ADA diabetes prevention research
+
+**Lab Value Thresholds:**
+- **HbA1c ≥6.5%:** ADA diabetic threshold
+- **LDL ≥190 mg/dL:** ACC/AHA very high risk
+- **BP ≥140/90:** JNC-8 hypertension Stage 2
+
+**References:**
+- American Diabetes Association (ADA) Standards of Care
+- American College of Cardiology (ACC/AHA) Guidelines
+- National Comprehensive Cancer Network (NCCN) Guidelines
+- Published peer-reviewed research on genetic risk
+
+---
+
+## 🗺️ Roadmap
+
+### ✅ Completed (MVP)
+- [x] Rule-based risk prediction for 10 diseases
+- [x] Web-based assessment interface
+- [x] Explainable results with reasons
+- [x] Personalized prevention plans
+- [x] Test recommendations
+- [x] Consultation urgency levels
+- [x] REST API with documentation
+
+### 🔄 In Progress
+- [ ] OCR for medical reports
+- [ ] Enhanced UI/UX
+- [ ] Error handling & validation
+
+### 🔮 Future Enhancements
+- [ ] User accounts & history tracking
+- [ ] Downloadable PDF reports
+- [ ] Multi-language support
+- [ ] Mobile app (iOS/Android)
+- [ ] Integration with wearables
+- [ ] Machine learning enhancements
+- [ ] Genetic test integration
+- [ ] Telemedicine partnerships
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how:
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/AmazingFeature`)
+3. **Commit changes** (`git commit -m 'Add AmazingFeature'`)
+4. **Push to branch** (`git push origin feature/AmazingFeature`)
+5. **Open a Pull Request**
+
+### Areas to Contribute
+- 🎨 UI/UX improvements
+- 🧪 Testing & validation
+- 📚 Documentation
+- 🔬 Additional disease models
+- 🌍 Internationalization
+- ♿ Accessibility features
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👥 Team
+
+**AI for Good Hackathon 2026**
+
+- **AI Team (2):** Risk prediction engine & OCR
+- **Backend Team (3):** FastAPI development
+- **Frontend Team (3):** React UI/UX
+- **Integration Lead (1):** API coordination
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Open-source health datasets
-- Medical literature on genetic risk assessment
-- Families who shared their health journeys
-- Academic mentors and health professionals
+- Medical guidelines from ADA, ACC/AHA, NCCN
+- Open-source community
+- Families sharing health journeys
+- Healthcare professionals providing guidance
 
 ---
 
-## 📧 Contact
+## 📞 Support & Contact
 
-[Add team contact information]
+**Issues?** [Open an issue](https://github.com/Jay-Jay-Tee/gen-counselling-ai-for-good/issues)
 
-**Last Updated:** January 28, 2026  
-**Hackathon:** AI for Good Challenge 2026
+**Questions?** Check our [Documentation](#-api-documentation) or [Quick Start](#-quick-start)
+
+---
+
+## 🌟 Star Us!
+
+If you find this project useful, please ⭐ star the repository to show support!
+
+---
+
+<div align="center">
+
+**Built with ❤️ for preventive healthcare**
+
+[⬆ Back to top](#-gen-counselling-ai-for-good)
+
+</div>
