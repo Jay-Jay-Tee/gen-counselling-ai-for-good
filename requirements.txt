@@ -1,15 +1,87 @@
-# Core AI/ML Dependencies
-# None required - using rule-based scoring (no ML models for MVP)
+# Gen Counselling AI for Good - Root Requirements
+# Install with: pip install -r requirements.txt
+# This installs ALL dependencies for backend + AI modules
 
-# For future ML integration (optional):
-# numpy>=1.24.0
-# pandas>=2.0.0
-# scikit-learn>=1.3.0
+# ==========================================
+# BACKEND DEPENDENCIES (FastAPI)
+# ==========================================
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+python-multipart==0.0.6
 
-# Python Standard Library (included by default)
-# json
-# pathlib
-# typing
+# For JWT auth (optional, if implementing user auth)
+# python-jose[cryptography]==3.3.0
+# passlib[bcrypt]==1.7.4
 
-# Note: This module uses only Python standard library
-# No external dependencies required for basic functionality
+# Environment variables
+python-dotenv==1.0.0
+
+# ==========================================
+# AI MODULE - OCR DEPENDENCIES
+# ==========================================
+
+# Primary OCR engines (choose one or use as fallback chain)
+easyocr==1.7.1
+pytesseract==0.3.10
+# paddleocr==2.7.3  # Alternative OCR (optional, large download)
+
+# Image processing
+opencv-python==4.9.0.80
+pillow==10.2.0
+numpy==1.26.3
+
+# PDF processing
+PyPDF2==3.0.1
+pdf2image==1.17.0
+# pdfplumber==0.10.3  # Alternative PDF parser (optional)
+
+# For pdf2image - requires system package: poppler-utils
+# Ubuntu: sudo apt-get install poppler-utils
+# macOS: brew install poppler
+# Windows: Download from https://github.com/oschwartz10612/poppler-windows/releases
+
+# ==========================================
+# AI MODULE - RISK PREDICTION
+# ==========================================
+
+# No external ML libraries needed for rule-based MVP
+# Uses Python standard library: json, pathlib, typing
+
+# Optional: For future ML enhancements
+# pandas==2.1.4
+# scikit-learn==1.4.0
+# xgboost==2.0.3
+
+# ==========================================
+# SHARED UTILITIES
+# ==========================================
+requests==2.31.0
+
+# Logging
+loguru==0.7.2
+
+# ==========================================
+# TESTING (Optional but recommended)
+# ==========================================
+pytest==7.4.4
+pytest-asyncio==0.23.3
+httpx==0.26.0  # For testing FastAPI endpoints
+
+# ==========================================
+# DEVELOPMENT TOOLS (Optional)
+# ==========================================
+black==24.1.1       # Code formatter
+flake8==7.0.0       # Linter
+mypy==1.8.0         # Type checker
+
+# ==========================================
+# NOTES
+# ==========================================
+# - This file installs BOTH backend and AI dependencies
+# - For production, consider splitting into separate environments
+# - OCR libraries are large (~500MB+ combined)
+# - System dependencies required:
+#   * Tesseract OCR: sudo apt-get install tesseract-ocr
+#   * Poppler: sudo apt-get install poppler-utils
