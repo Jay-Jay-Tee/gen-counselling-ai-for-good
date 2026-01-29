@@ -64,7 +64,7 @@ function UploadReport({ formData, updateFormData }) {
       const formDataObj = new FormData();
       formDataObj.append('file', file);
 
-      const response = await fetch('http://localhost:8000/ocr', {
+      const response = await fetch('/api/ocr/', {
         method: 'POST',
         body: formDataObj
       });

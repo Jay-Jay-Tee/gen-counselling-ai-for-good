@@ -4,6 +4,9 @@ Returns normalized scores (0.0 - 1.0) for each component
 """
 
 from typing import Dict, Any, List
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def normalize_lab_key(key: str) -> str:
@@ -236,6 +239,16 @@ def calculate_lab_score(disease: Dict, lab_values: Dict, thresholds: Dict) -> fl
             continue
         
         value = normalized_labs[marker]
+        # Guard: skip None or non-numeric values (OCR may return strings)
+        raw_value = value
+        try:
+            if value is None:
+                logger.debug("Lab marker '%s' missing or None - skipping", marker)
+                continue
+            value = float(value)
+        except (TypeError, ValueError):
+            logger.debug("Non-numeric lab value for '%s': %r - skipping", marker, raw_value)
+            continue
         markers_checked += 1
         
         # HbA1c scoring

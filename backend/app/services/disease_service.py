@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-DISEASE_FILE = Path(__file__).parent.parent.parent / "ai" / "data" / "diseases_config.json"
+DISEASE_FILE = Path(__file__).resolve().parents[3] / "ai" / "data" / "diseases_config.json"
 
 
 def get_disease_list():

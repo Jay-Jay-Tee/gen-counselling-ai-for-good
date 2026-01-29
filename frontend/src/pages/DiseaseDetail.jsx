@@ -22,7 +22,7 @@ function DiseaseDetail() {
       try {
         // Note: Backend should provide an endpoint like /disease/:disease_id
         // For now, we'll use the disease_id from the URL
-        const response = await fetch(`http://localhost:8000/disease/${diseaseName}`);
+        const response = await fetch(`/api/disease-info/${diseaseName}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch disease details');
