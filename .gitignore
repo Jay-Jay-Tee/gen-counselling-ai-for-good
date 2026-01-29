@@ -1,3 +1,4 @@
 .vscode/
 frontend/health-app/node_modules/
 frontend/health-app/package-lock.json
+__pycache__/
