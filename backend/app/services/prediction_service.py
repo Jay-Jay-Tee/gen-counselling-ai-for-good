@@ -5,12 +5,53 @@ Generates personalized prevention plans based on disease, risk class, and user p
 
 import json
 from pathlib import Path
+import sys
 from typing import Dict, List, Any
 
 # Module-relative paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 GUIDELINES_PATH = DATA_DIR / "guidelines.json"
+
+# Add parent to path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
+
+from ai.risk.risk_model import predict_risks
+from app.schemas.prediction import RiskRequest, RiskResponse, DiseaseRiskResult, ConsultDetail
+
+
+def predict_risk(payload: RiskRequest) -> RiskResponse:
+    """Main prediction function - connects backend to AI"""
+    
+    # Convert Pydantic to dict
+    user_data = {
+        "patient": payload.patient.dict(),
+        "lifestyle": payload.lifestyle.dict(),
+        "family": [m.dict() for m in payload.family],
+        "lab_values": payload.lab_values.dict() if payload.lab_values else {}
+    }
+    
+    # Call AI module
+    ai_results = predict_risks(user_data)
+    
+    # Convert back to Pydantic
+    disease_results = [
+        DiseaseRiskResult(
+            disease_name=r["disease_name"],
+            disease_id=r["disease_id"],
+            probability=r["probability"],
+            risk_class=r["risk_class"],
+            reasons=r["reasons"],
+            prevention=r["prevention"],
+            recommended_tests=r["recommended_tests"],
+            recommended_tests_detail=r.get("recommended_tests_detail", []),
+            consult=r["consult"],
+            consult_detail=ConsultDetail(**r["consult_detail"])
+        )
+        for r in ai_results
+    ]
+    
+    return RiskResponse(success=True, results=disease_results)
 
 
 def load_guidelines():
