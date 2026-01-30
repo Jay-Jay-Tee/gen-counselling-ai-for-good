@@ -27,6 +27,7 @@ app.add_middleware(
         "http://localhost:3000",  # Alternative React dev server
         "http://127.0.0.1:5173",
         "http://127.0.0.1:3000",
+        "https://gen-counselling-ai-for-good.onrender.com",  # Production frontend
     ],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
