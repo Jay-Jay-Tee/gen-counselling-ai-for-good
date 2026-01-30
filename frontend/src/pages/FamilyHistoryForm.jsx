@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users, Plus, X, Loader, AlertCircle } from 'lucide-react';
 
-function FamilyHistoryForm({ formData, updateFormData }) {
+function FamilyHistoryForm({ formData, updateFormData, onNext, onBack }) {
   const navigate = useNavigate();
   const [diseases, setDiseases] = useState([]);
   const [loadingDiseases, setLoadingDiseases] = useState(true);
@@ -90,7 +90,11 @@ function FamilyHistoryForm({ formData, updateFormData }) {
       });
     
     updateFormData('family', cleanedFamily);
-    navigate('/upload-report');
+    if (onNext) {
+      onNext();
+    } else {
+      navigate('/upload-report');
+    }
   };
 
   const getFamilyMemberLabel = (role) => {
@@ -341,7 +345,7 @@ function FamilyHistoryForm({ formData, updateFormData }) {
             <div className="flex justify-between pt-6">
               <button
                 type="button"
-                onClick={() => navigate('/lifestyle')}
+                onClick={() => onBack ? onBack() : navigate('/lifestyle')}
                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 Back

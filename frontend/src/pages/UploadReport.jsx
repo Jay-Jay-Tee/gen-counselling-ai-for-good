@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Upload, FileText, Check, AlertCircle } from 'lucide-react';
 import { uploadReport } from '../api/ocr';
 
-function UploadReport({ formData, updateFormData }) {
+function UploadReport({ formData, updateFormData, onNext, onBack }) {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [extractedValues, setExtractedValues] = useState({});
@@ -80,11 +80,19 @@ function UploadReport({ formData, updateFormData }) {
   };
 
   const handleSkip = () => {
-    navigate('/results');
+    if (onNext) {
+      onNext();
+    } else {
+      navigate('/results');
+    }
   };
 
   const handleContinue = () => {
-    navigate('/results');
+    if (onNext) {
+      onNext();
+    } else {
+      navigate('/results');
+    }
   };
 
   return (
@@ -207,7 +215,7 @@ function UploadReport({ formData, updateFormData }) {
           {/* Navigation Buttons */}
           <div className="flex justify-between mt-8 pt-6 border-t">
             <button
-              onClick={() => navigate('/family-history')}
+              onClick={() => onBack ? onBack() : navigate('/family-history')}
               className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
             >
               Back

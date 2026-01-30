@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Heart } from 'lucide-react';
 
-function LifestyleForm({ formData, updateFormData }) {
+function LifestyleForm({ formData, updateFormData, onNext, onBack }) {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: formData.lifestyle
@@ -13,7 +13,11 @@ function LifestyleForm({ formData, updateFormData }) {
     // Convert smoking to boolean
     data.smoking = data.smoking === 'true';
     updateFormData('lifestyle', data);
-    navigate('/family-history');
+    if (onNext) {
+      onNext();
+    } else {
+      navigate('/family-history');
+    }
   };
 
   return (
@@ -171,7 +175,7 @@ function LifestyleForm({ formData, updateFormData }) {
             <div className="flex justify-between pt-6">
               <button
                 type="button"
-                onClick={() => navigate('/registration')}
+                onClick={() => onBack ? onBack() : navigate('/registration')}
                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 Back

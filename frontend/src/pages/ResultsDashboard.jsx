@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Activity, AlertCircle, Loader } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
@@ -17,11 +17,15 @@ const URGENCY_STYLES = {
   urgent: 'bg-red-100 text-red-800'
 };
 
-function ResultsDashboard({ formData }) {
+function ResultsDashboard({ formData: propFormData }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Use formData from location state (Assessment flow) or props (legacy routes)
+  const formData = location.state?.formData || propFormData;
 
   useEffect(() => {
     const fetchResults = async () => {
