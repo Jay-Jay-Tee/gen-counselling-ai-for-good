@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { User } from 'lucide-react';
 
-function RegistrationForm({ formData, updateFormData }) {
+function RegistrationForm({ formData, updateFormData, onNext }) {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
     defaultValues: formData.patient
@@ -34,7 +34,11 @@ function RegistrationForm({ formData, updateFormData }) {
     patientData.known_issues = [];
     
     updateFormData('patient', patientData);
-    navigate('/lifestyle');
+    if (onNext) {
+      onNext();
+    } else {
+      navigate('/lifestyle');
+    }
   };
 
   return (

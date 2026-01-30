@@ -73,17 +73,22 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
     basic_info = user_data.get('basic_info', {})
     family = user_data.get('family', [])  # ✅ FIXED: use 'family' key
     
+    # Helper to safely get numeric values
+    def safe_get(d, key, default=0):
+        val = d.get(key)
+        return val if val is not None else default
+    
     # Critical lab values
     if disease_id == 'type2_diabetes':
-        hba1c = lab_values.get('hba1c', 0)
-        fasting_glucose = lab_values.get('fasting_glucose', 0)
+        hba1c = safe_get(lab_values, 'hba1c')
+        fasting_glucose = safe_get(lab_values, 'fasting_glucose')
         
         if hba1c >= 7.0 or fasting_glucose >= 140:
             return 'urgent'
     
     elif disease_id == 'cad':
-        ldl = lab_values.get('ldl', 0)
-        systolic = lab_values.get('systolic_bp', 0)
+        ldl = safe_get(lab_values, 'ldl')
+        systolic = safe_get(lab_values, 'systolic_bp')
         
         if ldl >= 190 or systolic >= 160:
             return 'urgent'
@@ -97,8 +102,8 @@ def check_red_flags(disease_id: str, user_data: Dict, current_urgency: str) -> s
                     return 'urgent'
     
     elif disease_id == 'hypertension':
-        systolic = lab_values.get('systolic_bp', 0)
-        diastolic = lab_values.get('diastolic_bp', 0)
+        systolic = safe_get(lab_values, 'systolic_bp')
+        diastolic = safe_get(lab_values, 'diastolic_bp')
         
         if systolic >= 160 or diastolic >= 100:
             return 'urgent'
