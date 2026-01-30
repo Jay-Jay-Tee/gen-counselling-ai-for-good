@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users, Plus, X, Loader, AlertCircle } from 'lucide-react';
 
+const API_BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "/api";
+
 function FamilyHistoryForm({ formData, updateFormData, onNext, onBack }) {
   const navigate = useNavigate();
   const [diseases, setDiseases] = useState([]);
@@ -25,7 +29,7 @@ function FamilyHistoryForm({ formData, updateFormData, onNext, onBack }) {
     const fetchDiseases = async () => {
       try {
         setLoadingDiseases(true);
-        const response = await fetch('/api/disease-info');
+        const response = fetch(`${API_BASE}/disease-info`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch diseases');

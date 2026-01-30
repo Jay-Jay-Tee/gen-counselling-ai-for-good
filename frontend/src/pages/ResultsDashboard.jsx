@@ -3,6 +3,11 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Activity, AlertCircle, Loader } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
+const API_BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "/api";
+
+
 const RISK_CLASSES = {
   I: { label: 'Low', color: '#22c55e', bgColor: 'bg-green-100', textColor: 'text-green-800' },
   II: { label: 'Moderate', color: '#eab308', bgColor: 'bg-yellow-100', textColor: 'text-yellow-800' },
@@ -33,7 +38,7 @@ function ResultsDashboard({ formData: propFormData }) {
       setError(null);
 
       try {
-        const response = await fetch('/api/predict-risk/', {
+        const response = await fetch(`${API_BASE}/predict-risk/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

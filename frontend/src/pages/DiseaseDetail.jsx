@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, AlertTriangle, Dumbbell, Stethoscope, Users, Loader } from 'lucide-react';
 
+const API_BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "/api";
+
+
 const RISK_CLASSES = {
   I: { label: 'Low Risk', color: 'bg-green-100 text-green-800' },
   II: { label: 'Moderate Risk', color: 'bg-yellow-100 text-yellow-800' },
@@ -22,7 +27,7 @@ function DiseaseDetail() {
       try {
         // Note: Backend should provide an endpoint like /disease/:disease_id
         // For now, we'll use the disease_id from the URL
-        const response = await fetch(`/api/disease-info/${diseaseName}`);
+        const response = await fetch(`${API_BASE}/disease-info/${diseaseName}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch disease details');
