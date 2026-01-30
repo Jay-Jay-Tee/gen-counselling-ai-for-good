@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Upload, FileText, Check, AlertCircle } from 'lucide-react';
+import { uploadReport } from '../api/ocr';
 
 function UploadReport({ formData, updateFormData }) {
   const navigate = useNavigate();
@@ -61,23 +62,14 @@ function UploadReport({ formData, updateFormData }) {
     setUploadError(null);
 
     try {
-      const formDataObj = new FormData();
-      formDataObj.append('file', file);
-
-      const response = await fetch('/api/ocr/', {
-        method: 'POST',
-        body: formDataObj
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to extract lab values');
-      }
-
-      const data = await response.json();
-      setExtractedValues(data.lab_values || {});
+      const data = await uploadReport(file);
+      
+      // Extract lab_values from the response
+      const labValues = data.lab_values || {};
+      setExtractedValues(labValues);
       
       // Update form data with extracted values
-      updateFormData('lab_values', data.lab_values || {});
+      updateFormData('lab_values', labValues);
       
     } catch (error) {
       setUploadError('Failed to extract lab values. Please try again or skip this step.');
