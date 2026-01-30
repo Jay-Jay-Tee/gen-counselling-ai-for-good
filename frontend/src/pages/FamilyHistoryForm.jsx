@@ -29,7 +29,7 @@ function FamilyHistoryForm({ formData, updateFormData, onNext, onBack }) {
     const fetchDiseases = async () => {
       try {
         setLoadingDiseases(true);
-        const response = fetch(`${API_BASE}/disease-info`);
+        const response = await fetch(`${API_BASE}/disease-info`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch diseases');
