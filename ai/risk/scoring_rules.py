@@ -222,8 +222,8 @@ def calculate_lab_score(disease: Dict, lab_values: Dict, thresholds: Dict) -> fl
     if not lab_values or not thresholds:
         return 0.15  # No lab data = slight uncertainty
     
-    # Normalize all lab keys
-    normalized_labs = {normalize_lab_key(k): v for k, v in lab_values.items()}
+    # Normalize all lab keys and filter out None values
+    normalized_labs = {normalize_lab_key(k): v for k, v in lab_values.items() if v is not None}
     
     lab_markers = disease.get('lab_markers', [])
     
