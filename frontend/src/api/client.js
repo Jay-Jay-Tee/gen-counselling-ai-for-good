@@ -6,7 +6,7 @@
 import axios from 'axios';
 
 // Base URL for API calls (defaults to same-origin /api which Vite can proxy)
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 // Create axios instance
 export const apiClient = axios.create({
@@ -26,11 +26,16 @@ apiClient.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
     
-    console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
+    // Only log in development
+    if (import.meta.env.DEV) {
+      console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
+    }
     return config;
   },
   (error) => {
-    console.error('Request error:', error);
+    if (import.meta.env.DEV) {
+      console.error('Request error:', error);
+    }
     return Promise.reject(error);
   }
 );
@@ -38,14 +43,18 @@ apiClient.interceptors.request.use(
 // Response interceptor
 apiClient.interceptors.response.use(
   (response) => {
-    console.log(`API Response: ${response.config.url} - ${response.status}`);
+    if (import.meta.env.DEV) {
+      console.log(`API Response: ${response.config.url} - ${response.status}`);
+    }
     return response;
   },
   (error) => {
     // Handle errors globally
     if (error.response) {
       // Server responded with error status
-      console.error('API Error:', error.response.status, error.response.data);
+      if (import.meta.env.DEV) {
+        console.error('API Error:', error.response.status, error.response.data);
+      }
       
       if (error.response.status === 401) {
         // Handle unauthorized - redirect to login if needed
@@ -55,10 +64,14 @@ apiClient.interceptors.response.use(
       }
     } else if (error.request) {
       // Request made but no response
-      console.error('No response from server:', error.request);
+      if (import.meta.env.DEV) {
+        console.error('No response from server:', error.request);
+      }
     } else {
       // Something else happened
-      console.error('Request setup error:', error.message);
+      if (import.meta.env.DEV) {
+        console.error('Request setup error:', error.message);
+      }
     }
     
     return Promise.reject(error);

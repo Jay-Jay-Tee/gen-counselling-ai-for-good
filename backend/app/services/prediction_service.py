@@ -8,13 +8,13 @@ from pathlib import Path
 import sys
 from typing import Dict, List, Any
 
-# Module-relative paths
-BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = BASE_DIR / "data"
+# FIXED: Module-relative paths - points to ai/data directory
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+DATA_DIR = BASE_DIR / "ai" / "data"
 GUIDELINES_PATH = DATA_DIR / "guidelines.json"
 
 # Add parent to path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent.parent))
+sys.path.insert(0, str(BASE_DIR))
 
 from ai.risk.risk_model import predict_risks
 from app.schemas.prediction import RiskRequest, RiskResponse, DiseaseRiskResult, ConsultDetail
